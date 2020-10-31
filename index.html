@@ -256,11 +256,13 @@
             </div>
             
                 <div class="postShorten-content">
-                    <h2 id="Eigenvalue-Eigenvectors"><a href="#Eigenvalue-Eigenvectors" class="headerlink" title="Eigenvalue, Eigenvectors"></a>Eigenvalue, Eigenvectors</h2><p>![img](C:\Users\nokoq\Google 드라이브\21 Hexo\hexo\source_posts\001-eigen\main-qimg-cd58f0ea7a4eb1b5b9800a1ccb418495.jpg)</p>
-<p>![img](C:\Users\nokoq\Google 드라이브\21 Hexo\hexo\source_posts\001-eigen\main-qimg-c35361274436735ec89de069d2a0304d.jpg)</p>
+                    <h2 id="Eigenvalue-Eigenvectors"><a href="#Eigenvalue-Eigenvectors" class="headerlink" title="Eigenvalue, Eigenvectors"></a>Eigenvalue, Eigenvectors</h2><img src="/2020/11/01/001-eigen/main1.jpg" class="">
+<img src="/2020/11/01/001-eigen/main2.jpg" class="">
 <p>위와 같이, 임의의 정방행렬 A에 대해 <strong>AB = λB</strong>인 (단, B는 0이 아닌 벡터) B를 eigenvector, 상수 λ를 eigenvalue 라고 한다.</p>
-<h2 id="Eigen-Decomposition"><a href="#Eigen-Decomposition" class="headerlink" title="Eigen Decomposition"></a>Eigen Decomposition</h2><p>$$<br>Av = \lambda v<br>\ AQ = Q\Lambda<br>\ A = Q\Lambda Q^{-1}<br>$$</p>
-
+<h2 id="Eigen-Decomposition"><a href="#Eigen-Decomposition" class="headerlink" title="Eigen Decomposition"></a>Eigen Decomposition</h2><script type="math/tex; mode=display">
+Av = \lambda v 
+\\ AQ = Q\Lambda
+\\ A = Q\Lambda Q^{-1}</script>
                     
                         
 
@@ -415,5 +417,22 @@
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>
