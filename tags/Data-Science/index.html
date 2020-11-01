@@ -280,8 +280,8 @@
 </ul>
 <p>x, y에 각각 N(10, 4), N(-10, 2)를 따르는 50개의 난수를 부여하고, 이를 클러스터링하였다.</p>
 <p>k값에 따른 클러스터의 분포는 다음과 같이 나타난다.</p>
-
-<h2 id="Partitioning-Around-Medoids-PAM"><a href="#Partitioning-Around-Medoids-PAM" class="headerlink" title="Partitioning Around Medoids (PAM)"></a>Partitioning Around Medoids (PAM)</h2>
+<img src="/2020/11/01/006-k-means/image-20201101104839137.png" class="">
+<h2 id="Partitioning-Around-Medoids-PAM"><a href="#Partitioning-Around-Medoids-PAM" class="headerlink" title="Partitioning Around Medoids (PAM)"></a>Partitioning Around Medoids (PAM)</h2><img src="/2020/11/01/006-k-means/350px-K-Medoids_Clustering.gif" class="">
 <p>k-Medoid 클러스터링 중 가장 널리 쓰이는 알고리즘이다.</p>
 <ul>
 <li>노이즈와 이상치에 보다 Robust하다.</li>
@@ -306,8 +306,7 @@
 </ol>
 </blockquote>
 <p>대푯값(medoid)을 도출하는 데에는 Gower’s Distance를 활용할 수 있다.</p>
-
-
+<img src="/2020/11/01/006-k-means/image-20201101110638616.png" class="">
                     
                         
 
@@ -366,7 +365,7 @@
 <h2 id="Secant-Method"><a href="#Secant-Method" class="headerlink" title="Secant Method"></a>Secant Method</h2><p>Newton’s Method의 파생 알고리즘이다. 두 개의 초기값을 설정해 계산한다. 발산 문제에서 자유로우며, 이차 도함수를 알지 못해도 적용할 수 있다.</p>
 <figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">secant.ftn = <span class="keyword">function</span>(g,a,b)&#123; </span><br><span class="line">  </span><br><span class="line">  iter = <span class="number">1</span></span><br><span class="line">  threshold = <span class="number">10</span>^(-<span class="number">9</span>)</span><br><span class="line">  err = <span class="number">1</span></span><br><span class="line">  x0 = a</span><br><span class="line">  x1 = b</span><br><span class="line">  </span><br><span class="line">  <span class="keyword">while</span>(err &gt;= threshold &amp; iter &lt; <span class="number">3000</span>)&#123;</span><br><span class="line">    z0 = genD(g, x0)</span><br><span class="line">    z1 = genD(g, x1)</span><br><span class="line">    x.new = x1 - z1$D[<span class="number">1</span>]*(x1 - x0) / (z1$D[<span class="number">1</span>] - z0$D[<span class="number">1</span>])</span><br><span class="line">    err = <span class="built_in">abs</span>(x.new - x1)</span><br><span class="line">    x0 = x1</span><br><span class="line">    x1 = x.new</span><br><span class="line">    iter = iter + <span class="number">1</span></span><br><span class="line">  &#125;</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">return</span>(<span class="built_in">list</span>(MLE = x.new,  iterations = iter))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>$Cauchy(\theta, 1)$ 분포에서 추출한 샘플을 통해 MLE를 구한다면, 각 method는 어떻게 작동할까?</p>
-
+<img src="/2020/11/01/005-optimization/image-20201101093736600.png" class="">
 <p>위와 같은 로그우도함수에 대해 각 방식은 아래와 같은 결과를 보였다.</p>
 <h4 id="Bisection"><a href="#Bisection" class="headerlink" title="Bisection"></a>Bisection</h4><div class="table-container">
 <table>
@@ -513,7 +512,7 @@
 <p>좀 더 복잡한 분포를 살펴보자.</p>
 <script type="math/tex; mode=display">
 f (x) = \frac{[1 − cos(x − \theta)]}{2π}</script><p>0 ≤ x ≤ 2π, where θ is a parameter between −π and π</p>
-
+<img src="/2020/11/01/005-optimization/image-20201101094540959.png" class="">
 <p>위와 같은 로그우도함수에 대해 Newton-Rhapson 방식을 적용하자. 취약점이 보일 것이다.  $\theta$ 의 method-of-moments estimator은 $\hat \theta = arcsin(\pi - \hat \mu) = -0.05844$ 이므로 이 부근에서 시작한 경우와 랜덤한 두 점 (-2.7과 2.7)에서 시작한 경우를 비교해 보았다.</p>
 <h4 id="Newton-Rhapson-1"><a href="#Newton-Rhapson-1" class="headerlink" title="Newton-Rhapson"></a>Newton-Rhapson</h4><div class="table-container">
 <table>
@@ -785,14 +784,14 @@ f (x) = \frac{[1 − cos(x − \theta)]}{2π}</script><p>0 ≤ x ≤ 2π, where 
 <table>
 <thead>
 <tr>
-<th></th>
-<th></th>
+<th><img src="/2020/11/01/008-t-SNE/image-20201101112440079.png" class=""></th>
+<th><img src="/2020/11/01/008-t-SNE/image-20201101112458621.png" class=""></th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td></td>
-<td></td>
+<td><img src="/2020/11/01/008-t-SNE/image-20201101112106210.png" class=""></td>
+<td><img src="/2020/11/01/008-t-SNE/image-20201101112135865.png" class=""></td>
 </tr>
 </tbody>
 </table>
@@ -806,7 +805,7 @@ f (x) = \frac{[1 − cos(x − \theta)]}{2π}</script><p>0 ≤ x ≤ 2π, where 
 </ul>
 <h4 id="Sillhouette-Width"><a href="#Sillhouette-Width" class="headerlink" title="Sillhouette Width"></a>Sillhouette Width</h4><ul>
 <li>클러스터링 품질 점수</li>
-<li>$x_i$의 실루엣 계수:  </li>
+<li>$x_i$의 실루엣 계수:  <img src="/2020/11/01/008-t-SNE/image-20201101112745706.png" class=""></li>
 <li>$a(i)$: 클러스터 내 데이터 응집도 (cohesion)</li>
 <li>$b(i)$: 클러스터 간 분리도 (separation)</li>
 <li>1에 가까울수록 좋다</li>
@@ -1163,7 +1162,7 @@ f (x) = \frac{[1 − cos(x − \theta)]}{2π}</script><p>0 ≤ x ≤ 2π, where 
                 <div class="postShorten-content">
                     <h2 id="차원-축소하기"><a href="#차원-축소하기" class="headerlink" title="차원 축소하기"></a>차원 축소하기</h2><h3 id="Curse-of-Dimensionality-차원의-저주"><a href="#Curse-of-Dimensionality-차원의-저주" class="headerlink" title="Curse of Dimensionality: 차원의 저주"></a>Curse of Dimensionality: 차원의 저주</h3><p>간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다.</p>
 <p>고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)</p>
-
+<img src="/2020/11/01/003-curse-of-dimensionality/curse-of-dimensionality-61461.jpg" class="">
 <p>n개의 points를 갖는 random sample에 대해 kernel density estimator을 정의하자.  (이 때, 해당 데이터는 p차원의 표준정규분포를 따른다고 가정한다.)  굳이 알 필요는 없지만, 진짜 mode에 대한 다변량 density estomator의 퀄리티를 판단하는 기준은 <strong>ORRMSE</strong>(Optimal Relative Root MSE)이다. ORRMSE의 식은 다음과 같다.</p>
 <script type="math/tex; mode=display">
 ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 목표는 ORRMSE를 작게 유지하는 것이다. 차원 p가 올라가면 적정 샘플 사이즈 n은 그보다 훨씬 큰 폭으로 증가한다. Computational Statistics (Givens and Hoeting, Wiley) 에 제시된 예시에 대한 결과표를 보자.</p>
@@ -1208,264 +1207,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
 </table>
 </div>
 <p>변수가 수백 개인 데이터도 드물지 않은데, 그 때마다 어마어마한 양의 샘플을 준비하는 것은 현실적으로 불가능하다. 그렇다면 해결책은 하나 뿐이다. 차원을 줄이는 것이다.</p>
-<ul>
-<li><p>LASSO, Ridge, mRMR, SVM-REF</p>
-</li>
-<li><p>t-SNE</p>
-</li>
-<li>PCA</li>
-<li>SVD</li>
-<li>LDA</li>
-</ul>
-<h2 id="변수-선택하기-Stepwise-Selection-regsubsets"><a href="#변수-선택하기-Stepwise-Selection-regsubsets" class="headerlink" title="변수 선택하기 - Stepwise Selection, regsubsets"></a>변수 선택하기 - Stepwise Selection, regsubsets</h2><p>baseball 데이터에는 야수 337명에 대한 27가지의 스탯과 연봉이 나타나 있다. 스탯은 1991년도 기준이고, 연봉은 1992년도에 책정된 값이다. (<a target="_blank" rel="noopener" href="https://www.stat.colostate.edu/computationalstatistics/datasets.zip">데이터</a>)</p>
-<h4 id="스탯의-변수명"><a href="#스탯의-변수명" class="headerlink" title="스탯의 변수명"></a>스탯의 변수명</h4><div class="table-container">
-<table>
-<thead>
-<tr>
-<th><strong>average</strong></th>
-<th><strong>OBP</strong></th>
-<th><strong>runs</strong></th>
-<th><strong>hits</strong></th>
-<th><strong>doubles</strong></th>
-<th><strong>triples</strong></th>
-<th><strong>homeruns</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>타율</strong></td>
-<td>출루율</td>
-<td>득점</td>
-<td>안타</td>
-<td>2루타</td>
-<td>3루타</td>
-<td>홈런</td>
-</tr>
-<tr>
-<td><strong>SBs</strong></td>
-<td><strong>RBIs</strong></td>
-<td><strong>walks</strong></td>
-<td><strong>SOs</strong></td>
-<td><strong>errors</strong></td>
-<td><strong>freeagent</strong></td>
-<td><strong>arbitration</strong></td>
-</tr>
-<tr>
-<td><strong>도루</strong></td>
-<td>타점</td>
-<td>볼넷</td>
-<td>삼진</td>
-<td>실책</td>
-<td>FA</td>
-<td>연봉조정</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><strong>runs/SOs</strong>, <strong>hits/SOs</strong> , <strong>RBIs/SOs</strong> , <strong>walks/SOs</strong>   </li>
-<li><strong>OBP/errors</strong>,  <strong>runs/errors</strong> , <strong>hits/errors</strong>,  <strong>homeruns/errors</strong></li>
-<li><strong>SOs*errors,</strong>  <strong>SBs*OBP</strong>,  <strong>SBs*runs</strong>,  <strong>SBs*hits</strong>  </li>
-</ul>
-<p>연봉을 반응변수로 삼아 회귀 모형을 만들어 보자. 이를 Full Model, 또는 <strong>Saturated Model</strong>이라 한다. 다중 회귀 모형에는 관행적으로 변수 선택을 진행한다. 줄여진 모형은 <strong>Reduced Model</strong>이라 한다. AIC를 기준으로 변수를 줄이는 방법을 두 가지 살펴보겠다.</p>
-<h3 id="Stepwise-Selection"><a href="#Stepwise-Selection" class="headerlink" title="Stepwise Selection"></a>Stepwise Selection</h3><p>Stepwise Selection 알고리즘은 변수를 하나씩 제거하거나 추가하면서 각 경우의 AIC를 비교하고, 개중 가장 낮은 값을 갖는 모형을 찾는다.</p>
-<ul>
-<li><strong>Backward Selection</strong>: 모든 변수를 가진 saturated model에서 변수를 하나씩 소거해 나간다. 제거 후에 AIC가 작아졌다면 제거된 모형을 채택하고 더 이상 AIC가 나아지지 않을 때까지 같은 작업을 반복한다.</li>
-<li><strong>Forward Selection</strong>: 반대로 상수만 지닌 reduced model에서 변수를 하나씩 추가하는 방식이다.</li>
-<li><strong>“Both”</strong>: 두 가지를 절충하여 추가와 제거를 반복하고자 하는 경우, (R 기준) both 인자를 넣는다.</li>
-</ul>
-<p>각 방식을 적용한 결과는 다음과 같이 나타났다.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th></th>
-<th><strong>채택  변수 수</strong></th>
-<th><strong>최종 AIC</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><strong>Backward</strong></td>
-<td>12</td>
-<td>-418.9421</td>
-</tr>
-<tr>
-<td><strong>Forward</strong></td>
-<td>27</td>
-<td>-396.706</td>
-</tr>
-<tr>
-<td><strong>Both</strong></td>
-<td>12</td>
-<td>-418.9421</td>
-</tr>
-</tbody>
-</table>
-</div>
-<ul>
-<li><p>Forward는 전체 설명변수를 모두 가져왔다.</p>
-</li>
-<li><p>Both와 Backward에서는 동일한 모형이 채택되었다.</p>
-<p>이 때 선택된 변수는 다음과 같다: 타율(-), 득점(+), 삼루타(-), 타점(+), 삼진(-), FA(+), 연봉조정(+), 득점/삼진(-), 안타/삼진(+), 삼진x실책(-), 도루x출루율(+), 도루x득점(-).</p>
-</li>
-</ul>
-<h3 id="regsubsets"><a href="#regsubsets" class="headerlink" title="regsubsets"></a>regsubsets</h3><p>regsubsets 알고리즘은 고정된 변수 개수에 맞추어 최적 모형을 도출한다.</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">regsub.AIC.ftn = <span class="keyword">function</span>(j)&#123;</span><br><span class="line">  model.row = regsub.baseball$which[j,]</span><br><span class="line">  model.exp = <span class="string">&#x27;lm( log(salary) ~ &#x27;</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">2</span>:<span class="number">28</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (model.row[i] == <span class="literal">TRUE</span>)&#123;</span><br><span class="line">      var.name = <span class="built_in">names</span>(model.row)[i]</span><br><span class="line">      model.exp = paste(model.exp, <span class="string">&quot; + &quot;</span>, var.name)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  model.exp = paste(model.exp,<span class="string">&quot;, data = df.baseball)&quot;</span>)</span><br><span class="line">  result = eval(parse(text = model.exp))</span><br><span class="line">  <span class="keyword">if</span>(j &lt; <span class="number">14</span>)&#123;</span><br><span class="line">    varnames = paste(<span class="built_in">names</span>(model.row)[model.row], collapse = <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> varnames = paste(<span class="string">&#x27;-&#x27;</span>, <span class="built_in">names</span>(model.row)[!model.row], collapse = <span class="string">&#x27; &#x27;</span>)</span><br><span class="line"></span><br><span class="line">  <span class="built_in">return</span>(<span class="built_in">c</span>(AIC = extractAIC(result)[<span class="number">2</span>],</span><br><span class="line">           var = varnames))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>p = 1에서 27까지의 최적 Subsets는 아래의 표에 나타내었다. 개중 AIC가 가장 작은 모형은 p = 12에서 얻을 수 있었다.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>p</th>
-<th>AIC</th>
-<th>Features Selected</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td>-86.20355</td>
-<td>hits</td>
-</tr>
-<tr>
-<td>2</td>
-<td>-236.91899</td>
-<td>freeagent arbitration</td>
-</tr>
-<tr>
-<td>3</td>
-<td>-382.08585</td>
-<td>rbis freeagent arbitration</td>
-</tr>
-<tr>
-<td>4</td>
-<td>-397.06152</td>
-<td>hits rbis freeagent arbitration</td>
-</tr>
-<tr>
-<td>5</td>
-<td>-406.00412</td>
-<td>hits rbis freeagent arbitration soserrors</td>
-</tr>
-<tr>
-<td>6</td>
-<td>-410.43729</td>
-<td>runs rbis sos freeagent arbitration runsperso</td>
-</tr>
-<tr>
-<td>7</td>
-<td>-413.72379</td>
-<td>runs rbis sos freeagent arbitration runsperso hitsperso</td>
-</tr>
-<tr>
-<td>8</td>
-<td>-416.30347</td>
-<td>runs rbis sos freeagent arbitration obppererror runspererror hitspererror</td>
-</tr>
-<tr>
-<td>9</td>
-<td>-416.42493</td>
-<td>runs rbis sos freeagent arbitration obppererror runspererror hitspererror soserrors</td>
-</tr>
-<tr>
-<td>10</td>
-<td>-417.47395</td>
-<td>runs rbis sos freeagent arbitration runsperso hitsperso soserrors sbsobp sbsruns</td>
-</tr>
-<tr>
-<td>11</td>
-<td>-418.45106</td>
-<td>average runs rbis sos freeagent arbitration runsperso hitsperso soserrors sbsobp sbsruns</td>
-</tr>
-<tr>
-<td>12</td>
-<td>-418.94721</td>
-<td>obp runs triples rbis sos freeagent arbitration runsperso hitsperso soserrors sbsobp sbsruns</td>
-</tr>
-<tr>
-<td>13</td>
-<td>-418.09221</td>
-<td>average runs triples rbis sos freeagent arbitration runsperso hitsperso hrsperso soserrors sbsobp sbsruns</td>
-</tr>
-<tr>
-<td>14</td>
-<td>-417.20098</td>
-<td>- average - hits - doubles - homeruns - sbs - errors - rbisperso - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
-</tr>
-<tr>
-<td>15</td>
-<td>-416.22752</td>
-<td>- average - hits - doubles - homeruns - sbs - errors - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
-</tr>
-<tr>
-<td>16</td>
-<td>-415.45316</td>
-<td>- average - doubles - walks - sbs - errors - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
-</tr>
-<tr>
-<td>17</td>
-<td>-414.01172</td>
-<td>- average - doubles - sbs - errors - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
-</tr>
-<tr>
-<td>18</td>
-<td>-413.16254</td>
-<td>- average - doubles - walks - sbs - walksperso - runspererror - hrspererror - soserrors - sbshits</td>
-</tr>
-<tr>
-<td>19</td>
-<td>-411.53320</td>
-<td>- average - doubles - sbs - walksperso - runspererror - hrspererror - soserrors - sbshits</td>
-</tr>
-<tr>
-<td>20</td>
-<td>-410.00084</td>
-<td>- obp - doubles - sbs - runspererror - hrspererror - soserrors - sbshits</td>
-</tr>
-<tr>
-<td>21</td>
-<td>-408.22846</td>
-<td>- obp - doubles - sbs - errors - hrspererror - sbshits</td>
-</tr>
-<tr>
-<td>22</td>
-<td>-406.42133</td>
-<td>- obp - sbs - errors - hrspererror - sbshits</td>
-</tr>
-<tr>
-<td>23</td>
-<td>-404.56810</td>
-<td>- obp - sbs - errors - sbshits</td>
-</tr>
-<tr>
-<td>24</td>
-<td>-402.63184</td>
-<td>- obp - errors - sbshits</td>
-</tr>
-<tr>
-<td>25</td>
-<td>-400.66945</td>
-<td>- errors - sbshits</td>
-</tr>
-<tr>
-<td>26</td>
-<td>-398.69257</td>
-<td>- sbshits</td>
-</tr>
-<tr>
-<td>27</td>
-<td>-396.70603</td>
-<td>-</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>최적의 모형인 p = 12에서 선택된 변수는 출루율(-), 득점(+), 삼루타(-), 타점(+), FA(+), 연봉조정(+), 득점삼진비(-), 안타삼진비(+), 도루x실책(-), 도루x출루율(+), 도루x득점(-)이다.</p>
-<p>양쪽 결과가 비슷하게 나타났다. 문장으로 풀어 쓴다면 안타가 많고 타율이 좋은 타자는 오히려 낮은 연봉을 받는다고 해석할 수 있다. 이는 높은 연봉이 책정되는 홈런 타자들에게 영향을 받은 결과로 보인다. (3루타의 경우, 장타력뿐만 아니라 상당한 주력이 함께 뒷받침되어야 하는 데다 부상의 위험이 따르므로 대부분의 거포형 선수와 베테랑 선수들은 2루에서 멈추게 된다.) 큰 폭으로 연봉이 상승하게 되는 FA 전환 여부 또한 모형에 주는 영향이 크다. 연봉 조정 역시 같은 맥락에서 해석할 수 있을 것이다.</p>
-<h3 id="Scope"><a href="#Scope" class="headerlink" title="* Scope"></a>* Scope</h3><p>R에서 step함수를 사용한다면 변수의 범위를 지정할 수 있다.</p>
-<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">step(model, direction = [<span class="string">&#x27;forward&#x27;</span>,<span class="string">&#x27;backward&#x27;</span>],</span><br><span class="line">                   scope = <span class="built_in">list</span>(upper = y ~ .,</span><br><span class="line">                                lower = y ~ x1 + x2 + x3 + x4 + x5))</span><br></pre></td></tr></table></figure>
-<h2 id="변수-선택하기"><a href="#변수-선택하기" class="headerlink" title="변수 선택하기 -"></a>변수 선택하기 -</h2>
+
                     
                         
 
