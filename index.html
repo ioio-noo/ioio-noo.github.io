@@ -11,7 +11,7 @@
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://ioio-noo.github.io","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/","mailto"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"name":"데이터 바다의 요요누","description":"","url":"http://ioio-noo.github.io"}</script>
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://ioio-noo.github.io","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"name":"데이터 바다의 요요누","description":"","url":"http://ioio-noo.github.io"}</script>
     <meta property="og:type" content="blog">
 <meta property="og:title" content="데이터 바다의 요요누">
 <meta property="og:url" content="http://ioio-noo.github.io/index.html">
@@ -172,7 +172,7 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="https://twitter.com/"
+                            href="https://twitter.com/ioio5252"
                             
                                 target="_blank"
                             
@@ -188,7 +188,9 @@
                     
                         <a
                             class="sidebar-button-link "
-                            href="/mailto"
+                            href="mailto:nokoquest@gmail.com"
+                            
+                                target="_blank"
                             
                             rel="noopener"
                             title="Mail"
@@ -227,6 +229,407 @@
                         hasCoverMetaIn
                         ">
                 <section class="postShorten-group main-content-wrap">
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2020/11/01/007-step-regsubset/"
+                            aria-label=": Stepwise Selection과 Regsubset"
+                        >
+                            Stepwise Selection과 Regsubset
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-01T10:08:18+09:00">
+	
+		    Nov 01, 2020
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    <h2 id="변수-선택하기-Stepwise-Selection-regsubsets"><a href="#변수-선택하기-Stepwise-Selection-regsubsets" class="headerlink" title="변수 선택하기 - Stepwise Selection, regsubsets"></a>변수 선택하기 - Stepwise Selection, regsubsets</h2><p>baseball 데이터에는 야수 337명에 대한 27가지의 스탯과 연봉이 나타나 있다. 스탯은 1991년도 기준이고, 연봉은 1992년도에 책정된 값이다. (<a target="_blank" rel="noopener" href="https://www.stat.colostate.edu/computationalstatistics/datasets.zip">데이터</a>)</p>
+<h4 id="스탯의-변수명"><a href="#스탯의-변수명" class="headerlink" title="스탯의 변수명"></a>스탯의 변수명</h4><div class="table-container">
+<table>
+<thead>
+<tr>
+<th><strong>average</strong></th>
+<th><strong>OBP</strong></th>
+<th><strong>runs</strong></th>
+<th><strong>hits</strong></th>
+<th><strong>doubles</strong></th>
+<th><strong>triples</strong></th>
+<th><strong>homeruns</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>타율</strong></td>
+<td>출루율</td>
+<td>득점</td>
+<td>안타</td>
+<td>2루타</td>
+<td>3루타</td>
+<td>홈런</td>
+</tr>
+<tr>
+<td><strong>SBs</strong></td>
+<td><strong>RBIs</strong></td>
+<td><strong>walks</strong></td>
+<td><strong>SOs</strong></td>
+<td><strong>errors</strong></td>
+<td><strong>freeagent</strong></td>
+<td><strong>arbitration</strong></td>
+</tr>
+<tr>
+<td><strong>도루</strong></td>
+<td>타점</td>
+<td>볼넷</td>
+<td>삼진</td>
+<td>실책</td>
+<td>FA</td>
+<td>연봉조정</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><strong>runs/SOs</strong>, <strong>hits/SOs</strong> , <strong>RBIs/SOs</strong> , <strong>walks/SOs</strong>   </li>
+<li><strong>OBP/errors</strong>,  <strong>runs/errors</strong> , <strong>hits/errors</strong>,  <strong>homeruns/errors</strong> </li>
+<li><strong>SOs*errors,</strong>  <strong>SBs*OBP</strong>,  <strong>SBs*runs</strong>,  <strong>SBs*hits</strong>  </li>
+</ul>
+<p>연봉을 반응변수로 삼아 회귀 모형을 만들어 보자. 이를 Full Model, 또는 <strong>Saturated Model</strong>이라 한다. 다중 회귀 모형에는 관행적으로 변수 선택을 진행한다. 줄여진 모형은 <strong>Reduced Model</strong>이라 한다. AIC를 기준으로 변수를 줄이는 방법을 두 가지 살펴보겠다.</p>
+<h3 id="Stepwise-Selection"><a href="#Stepwise-Selection" class="headerlink" title="Stepwise Selection"></a>Stepwise Selection</h3><p>Stepwise Selection 알고리즘은 변수를 하나씩 제거하거나 추가하면서 각 경우의 AIC를 비교하고, 개중 가장 낮은 값을 갖는 모형을 찾는다. </p>
+<ul>
+<li><strong>Backward Selection</strong>: 모든 변수를 가진 saturated model에서 변수를 하나씩 소거해 나간다. 제거 후에 AIC가 작아졌다면 제거된 모형을 채택하고 더 이상 AIC가 나아지지 않을 때까지 같은 작업을 반복한다. </li>
+<li><strong>Forward Selection</strong>: 반대로 상수만 지닌 reduced model에서 변수를 하나씩 추가하는 방식이다.</li>
+<li><strong>“Both”</strong>: 두 가지를 절충하여 추가와 제거를 반복하고자 하는 경우, (R 기준) both 인자를 넣는다.</li>
+</ul>
+<p>각 방식을 적용한 결과는 다음과 같이 나타났다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th></th>
+<th><strong>채택  변수 수</strong></th>
+<th><strong>최종 AIC</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Backward</strong></td>
+<td>12</td>
+<td>-418.9421</td>
+</tr>
+<tr>
+<td><strong>Forward</strong></td>
+<td>27</td>
+<td>-396.706</td>
+</tr>
+<tr>
+<td><strong>Both</strong></td>
+<td>12</td>
+<td>-418.9421</td>
+</tr>
+</tbody>
+</table>
+</div>
+<ul>
+<li><p>Forward는 전체 설명변수를 모두 가져왔다. </p>
+</li>
+<li><p>Both와 Backward에서는 동일한 모형이 채택되었다. </p>
+<p>이 때 선택된 변수는 다음과 같다: 타율(-), 득점(+), 삼루타(-), 타점(+), 삼진(-), FA(+), 연봉조정(+), 득점/삼진(-), 안타/삼진(+), 삼진x실책(-), 도루x출루율(+), 도루x득점(-).</p>
+</li>
+</ul>
+<h3 id="regsubsets"><a href="#regsubsets" class="headerlink" title="regsubsets"></a>regsubsets</h3><p>regsubsets 알고리즘은 고정된 변수 개수에 맞추어 최적 모형을 도출한다. </p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">regsub.AIC.ftn = <span class="keyword">function</span>(j)&#123;</span><br><span class="line">  model.row = regsub.baseball$which[j,]</span><br><span class="line">  model.exp = <span class="string">&#x27;lm( log(salary) ~ &#x27;</span></span><br><span class="line">  </span><br><span class="line">  <span class="keyword">for</span> (i <span class="keyword">in</span> <span class="number">2</span>:<span class="number">28</span>)&#123;</span><br><span class="line">    <span class="keyword">if</span> (model.row[i] == <span class="literal">TRUE</span>)&#123;</span><br><span class="line">      var.name = <span class="built_in">names</span>(model.row)[i]</span><br><span class="line">      model.exp = paste(model.exp, <span class="string">&quot; + &quot;</span>, var.name)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  model.exp = paste(model.exp,<span class="string">&quot;, data = df.baseball)&quot;</span>)</span><br><span class="line">  result = eval(parse(text = model.exp))</span><br><span class="line">  <span class="keyword">if</span>(j &lt; <span class="number">14</span>)&#123;</span><br><span class="line">    varnames = paste(<span class="built_in">names</span>(model.row)[model.row], collapse = <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">  &#125; <span class="keyword">else</span> varnames = paste(<span class="string">&#x27;-&#x27;</span>, <span class="built_in">names</span>(model.row)[!model.row], collapse = <span class="string">&#x27; &#x27;</span>)</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">return</span>(<span class="built_in">c</span>(AIC = extractAIC(result)[<span class="number">2</span>], </span><br><span class="line">           var = varnames))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>p = 1에서 27까지의 최적 Subsets는 아래의 표에 나타내었다. 개중 AIC가 가장 작은 모형은 p = 12에서 얻을 수 있었다.</p>
+<div class="table-container">
+<table>
+<thead>
+<tr>
+<th>p</th>
+<th>AIC</th>
+<th>Features Selected</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>-86.20355</td>
+<td>hits</td>
+</tr>
+<tr>
+<td>2</td>
+<td>-236.91899</td>
+<td>freeagent arbitration</td>
+</tr>
+<tr>
+<td>3</td>
+<td>-382.08585</td>
+<td>rbis freeagent arbitration</td>
+</tr>
+<tr>
+<td>4</td>
+<td>-397.06152</td>
+<td>hits rbis freeagent arbitration</td>
+</tr>
+<tr>
+<td>5</td>
+<td>-406.00412</td>
+<td>hits rbis freeagent arbitration soserrors</td>
+</tr>
+<tr>
+<td>6</td>
+<td>-410.43729</td>
+<td>runs rbis sos freeagent arbitration runsperso</td>
+</tr>
+<tr>
+<td>7</td>
+<td>-413.72379</td>
+<td>runs rbis sos freeagent arbitration runsperso hitsperso</td>
+</tr>
+<tr>
+<td>8</td>
+<td>-416.30347</td>
+<td>runs rbis sos freeagent arbitration obppererror runspererror hitspererror</td>
+</tr>
+<tr>
+<td>9</td>
+<td>-416.42493</td>
+<td>runs rbis sos freeagent arbitration obppererror runspererror hitspererror soserrors</td>
+</tr>
+<tr>
+<td>10</td>
+<td>-417.47395</td>
+<td>runs rbis sos freeagent arbitration runsperso hitsperso soserrors sbsobp sbsruns</td>
+</tr>
+<tr>
+<td>11</td>
+<td>-418.45106</td>
+<td>average runs rbis sos freeagent arbitration runsperso hitsperso soserrors sbsobp sbsruns</td>
+</tr>
+<tr>
+<td>12</td>
+<td>-418.94721</td>
+<td>obp runs triples rbis sos freeagent arbitration runsperso hitsperso soserrors sbsobp sbsruns</td>
+</tr>
+<tr>
+<td>13</td>
+<td>-418.09221</td>
+<td>average runs triples rbis sos freeagent arbitration runsperso hitsperso hrsperso soserrors sbsobp sbsruns</td>
+</tr>
+<tr>
+<td>14</td>
+<td>-417.20098</td>
+<td>- average - hits - doubles - homeruns - sbs - errors - rbisperso - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
+</tr>
+<tr>
+<td>15</td>
+<td>-416.22752</td>
+<td>- average - hits - doubles - homeruns - sbs - errors - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
+</tr>
+<tr>
+<td>16</td>
+<td>-415.45316</td>
+<td>- average - doubles - walks - sbs - errors - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
+</tr>
+<tr>
+<td>17</td>
+<td>-414.01172</td>
+<td>- average - doubles - sbs - errors - walksperso - obppererror - runspererror - hitspererror - hrspererror - sbshits</td>
+</tr>
+<tr>
+<td>18</td>
+<td>-413.16254</td>
+<td>- average - doubles - walks - sbs - walksperso - runspererror - hrspererror - soserrors - sbshits</td>
+</tr>
+<tr>
+<td>19</td>
+<td>-411.53320</td>
+<td>- average - doubles - sbs - walksperso - runspererror - hrspererror - soserrors - sbshits</td>
+</tr>
+<tr>
+<td>20</td>
+<td>-410.00084</td>
+<td>- obp - doubles - sbs - runspererror - hrspererror - soserrors - sbshits</td>
+</tr>
+<tr>
+<td>21</td>
+<td>-408.22846</td>
+<td>- obp - doubles - sbs - errors - hrspererror - sbshits</td>
+</tr>
+<tr>
+<td>22</td>
+<td>-406.42133</td>
+<td>- obp - sbs - errors - hrspererror - sbshits</td>
+</tr>
+<tr>
+<td>23</td>
+<td>-404.56810</td>
+<td>- obp - sbs - errors - sbshits</td>
+</tr>
+<tr>
+<td>24</td>
+<td>-402.63184</td>
+<td>- obp - errors - sbshits</td>
+</tr>
+<tr>
+<td>25</td>
+<td>-400.66945</td>
+<td>- errors - sbshits</td>
+</tr>
+<tr>
+<td>26</td>
+<td>-398.69257</td>
+<td>- sbshits</td>
+</tr>
+<tr>
+<td>27</td>
+<td>-396.70603</td>
+<td>-</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>최적의 모형인 p = 12에서 선택된 변수는 출루율(-), 득점(+), 삼루타(-), 타점(+), FA(+), 연봉조정(+), 득점삼진비(-), 안타삼진비(+), 도루x실책(-), 도루x출루율(+), 도루x득점(-)이다.</p>
+<p>양쪽 결과가 비슷하게 나타났다. 문장으로 풀어 쓴다면 안타가 많고 타율이 좋은 타자는 오히려 낮은 연봉을 받는다고 해석할 수 있다. 이는 높은 연봉이 책정되는 홈런 타자들에게 영향을 받은 결과로 보인다. (3루타의 경우, 장타력뿐만 아니라 상당한 주력이 함께 뒷받침되어야 하는 데다 부상의 위험이 따르므로 대부분의 거포형 선수와 베테랑 선수들은 2루에서 멈추게 된다.) 큰 폭으로 연봉이 상승하게 되는 FA 전환 여부 또한 모형에 주는 영향이 크다. 연봉 조정 역시 같은 맥락에서 해석할 수 있을 것이다.</p>
+<h3 id="Scope"><a href="#Scope" class="headerlink" title="* Scope"></a>* Scope</h3><p>R에서 step함수를 사용한다면 변수의 범위를 지정할 수 있다.</p>
+<figure class="highlight r"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">step(model, direction = [<span class="string">&#x27;forward&#x27;</span>,<span class="string">&#x27;backward&#x27;</span>], </span><br><span class="line">                   scope = <span class="built_in">list</span>(upper = y ~ .,</span><br><span class="line">                                lower = y ~ x1 + x2 + x3 + x4 + x5))</span><br></pre></td></tr></table></figure>
+
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2020/11/01/007-step-regsubset/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2020/11/01/004-lift/"
+                            aria-label=": 004-lift"
+                        >
+                            004-lift
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-01T09:04:48+09:00">
+	
+		    Nov 01, 2020
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2020/11/01/004-lift/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
+    
+    
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2020/11/01/006-k-means/"
+                            aria-label=": 004-lift"
+                        >
+                            004-lift
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-01T09:04:48+09:00">
+	
+		    Nov 01, 2020
+    	
+    </time>
+    
+</div>
+
+            </div>
+            
+                <div class="postShorten-content">
+                    
+                    
+                        
+
+
+                    
+                    
+                        <p>
+                            <a
+                                href="/2020/11/01/006-k-means/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
+                    
+                </div>
+            
+        </div>
+        
+    </article>
     
     
     <article class="postShorten postShorten--thumbnailimg-bottom">
@@ -380,6 +783,75 @@ Av = \lambda v
                     <hr>
                 </div>
                 
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="http://ioio-noo.github.io/2020/11/01/004-lift/"
+                            aria-label=": 004-lift"
+                        >
+                            <h3 class="media-heading">004-lift</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 1, 2020
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="http://ioio-noo.github.io/2020/11/01/006-k-means/"
+                            aria-label=": 004-lift"
+                        >
+                            <h3 class="media-heading">004-lift</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 1, 2020
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
+                <div class="media">
+                    
+                    <div class="media-body">
+                        <a
+                            class="link-unstyled"
+                            href="http://ioio-noo.github.io/2020/11/01/007-step-regsubset/"
+                            aria-label=": Stepwise Selection과 Regsubset"
+                        >
+                            <h3 class="media-heading">Stepwise Selection과 Regsubset</h3>
+                        </a>
+                        <span class="media-meta">
+                            <span class="media-date text-small">
+                                
+                                    Nov 1, 2020
+                                
+                            </span>
+                        </span>
+                        <div class="media-content hide-xs font-merryweather"></div>
+                    </div>
+                    <div style="clear:both;"></div>
+                    <hr>
+                </div>
+                
             </div>
         </div>
         <div class="modal-footer">
@@ -387,7 +859,7 @@ Av = \lambda v
                 data-message-zero="no post found"
                 data-message-one="1 post found"
                 data-message-other="{n} posts found">
-                1 post found
+                4 posts found
             </p>
         </div>
     </div>
