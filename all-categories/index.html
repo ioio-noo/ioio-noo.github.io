@@ -10,8 +10,10 @@
     <meta name="author" content="요요누">
     
     
+        <link rel="icon" href="http://ioio-noo.github.io/assets/images/drowning.png">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://ioio-noo.github.io","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"name":"데이터 바다의 요요누","description":"","url":"http://ioio-noo.github.io"}</script>
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"Website","@id":"http://ioio-noo.github.io","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png"},"name":"데이터 바다의 요요누","description":"","url":"http://ioio-noo.github.io"}</script>
     <meta property="og:type" content="blog">
 <meta property="og:title" content="all-categories">
 <meta property="og:url" content="http://ioio-noo.github.io/all-categories/index.html">
@@ -26,6 +28,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://ioio-noo.github.io/assets/images/drowning.png"/>
     
     
     
@@ -48,6 +52,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -69,6 +77,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -76,8 +86,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="2">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">요요누</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -269,11 +297,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">요요누</h4>
         
@@ -585,5 +619,22 @@
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>

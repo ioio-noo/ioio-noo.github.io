@@ -10,8 +10,10 @@
     <meta name="author" content="요요누">
     
     
+        <link rel="icon" href="http://ioio-noo.github.io/assets/images/drowning.png">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"\nk-Means Clustering각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다.\n알고리즘 개요\n\nInput: k = Number of clusters to be used\nx, y = two numeric vectors identical in lengths\n\nx와 y의 random cluster centers 생성:x.centers ~ Unif( min(x), max(x) )y.centers ~ Unif( min(y), max(y) )\n\ni = 1, 2, … , length(x)일 때x[i]와 x.centers, y[i]와 y.centers 간의 거리를 통해 유클리드 거리 측정개중 가장 거리가 가깝게 나타나는 x.center, y.center 쌍에 해당하는 cluster를 해당 점에 매칭\n\nsubset(x, cluster)의 평균 계산 후 이 값과 기존의 x.center, y.center이 동일하면 loop 중단\n\n\n\n\n빠르다.\nk-Median, k-Means++, k-Medoid 등의 변형이 있다.\nElbow Method: within-cluster sum of squares를 line chart로 나타내어 눈에 띄게 꺾이는 부분을 클러스터 개수로 설정하는 경우가 많다.\n\nx, y에 각각 N(10, 4), N(-10, 2)를 따르는 50개의 난수를 부여하고, 이를 클러스터링하였다.\nk값에 따른 클러스터의 분포는 다음과 같이 나타난다.\n\n\nPartitioning Around Medoids (PAM)\nk-Medoid 클러스터링 중 가장 널리 쓰이는 알고리즘이다.\n\n노이즈와 이상치에 보다 Robust하다.\n해석이 용이하다.\n\nGreedy Search: 최적치에 도달하지 못할 수 있다. 그래도 Exhaustive Search보단 훨씬 빠르다.\n\n\n알고리즘 개요\n\nInitialize: greedily select k of the n data points as the medoids to minimize the cost\nAssociate each data point to the closest medoid.\nWhile the cost of the configuration decreases:\nFor each medoid m, and for each non-medoid data point o:\nConsider the swap of m and o, and compute the cost change\nIf the cost change is the current best, remember this m and o combination\n\n\nPerform the best swap of $m_{best}$and $o_{best}$, if it decreases the cost function. Otherwise, the algorithm terminates.\n\n\n\n\n대푯값(medoid)을 도출하는 데에는 Gower’s Distance를 활용할 수 있다.\n\n","dateCreated":"2020-11-01T11:52:39+09:00","dateModified":"2020-11-02T09:19:52+09:00","datePublished":"2020-11-01T11:52:39+09:00","description":"","headline":"k-Means","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/006-k-means/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/01/006-k-means/","keywords":"Data Science"}</script>
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png"},"articleBody":"\nk-Means Clustering각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다.\n알고리즘 개요\n\nInput: k = Number of clusters to be used\nx, y = two numeric vectors identical in lengths\n\nx와 y의 random cluster centers 생성:x.centers ~ Unif( min(x), max(x) )y.centers ~ Unif( min(y), max(y) )\n\ni = 1, 2, … , length(x)일 때x[i]와 x.centers, y[i]와 y.centers 간의 거리를 통해 유클리드 거리 측정개중 가장 거리가 가깝게 나타나는 x.center, y.center 쌍에 해당하는 cluster를 해당 점에 매칭\n\nsubset(x, cluster)의 평균 계산 후 이 값과 기존의 x.center, y.center이 동일하면 loop 중단\n\n\n\n\n빠르다.\nk-Median, k-Means++, k-Medoid 등의 변형이 있다.\nElbow Method: within-cluster sum of squares를 line chart로 나타내어 눈에 띄게 꺾이는 부분을 클러스터 개수로 설정하는 경우가 많다.\n\nx, y에 각각 N(10, 4), N(-10, 2)를 따르는 50개의 난수를 부여하고, 이를 클러스터링하였다.\nk값에 따른 클러스터의 분포는 다음과 같이 나타난다.\n\n\nPartitioning Around Medoids (PAM)\nk-Medoid 클러스터링 중 가장 널리 쓰이는 알고리즘이다.\n\n노이즈와 이상치에 보다 Robust하다.\n해석이 용이하다.\n\nGreedy Search: 최적치에 도달하지 못할 수 있다. 그래도 Exhaustive Search보단 훨씬 빠르다.\n\n\n알고리즘 개요\n\nInitialize: greedily select k of the n data points as the medoids to minimize the cost\nAssociate each data point to the closest medoid.\nWhile the cost of the configuration decreases:\nFor each medoid m, and for each non-medoid data point o:\nConsider the swap of m and o, and compute the cost change\nIf the cost change is the current best, remember this m and o combination\n\n\nPerform the best swap of $m_{best}$and $o_{best}$, if it decreases the cost function. Otherwise, the algorithm terminates.\n\n\n\n\n대푯값(medoid)을 도출하는 데에는 Gower’s Distance를 활용할 수 있다.\n\n","dateCreated":"2020-11-01T11:52:39+09:00","dateModified":"2020-11-02T09:19:52+09:00","datePublished":"2020-11-01T11:52:39+09:00","description":"","headline":"k-Means","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/006-k-means/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png","logo":{"@type":"ImageObject","url":"drowning.png"}},"url":"http://ioio-noo.github.io/2020/11/01/006-k-means/","keywords":"Data Science"}</script>
     <meta name="description" content="k-Means Clustering각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다. 알고리즘 개요  Input: k &#x3D; Number of clusters to be used x, y &#x3D; two numeric vectors identical in lengths  x와 y의 random cluster centers">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="k-Means">
@@ -33,6 +35,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://ioio-noo.github.io/assets/images/drowning.png"/>
     
     
     
@@ -57,6 +61,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -78,6 +86,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -85,8 +95,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">요요누</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -603,11 +631,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">요요누</h4>
         
@@ -921,5 +955,22 @@
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>

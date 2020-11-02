@@ -10,8 +10,10 @@
     <meta name="author" content="요요누">
     
     
+        <link rel="icon" href="http://ioio-noo.github.io/assets/images/drowning.png">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"차원 축소하기Curse of Dimensionality: 차원의 저주간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다.\n고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)\n\nn개의 points를 갖는 random sample에 대해 kernel density estimator을 정의하자.  (이 때, 해당 데이터는 p차원의 표준정규분포를 따른다고 가정한다.)  굳이 알 필요는 없지만, 진짜 mode에 대한 다변량 density estomator의 퀄리티를 판단하는 기준은 ORRMSE(Optimal Relative Root MSE)이다. ORRMSE의 식은 다음과 같다.\n\nORRMSE(p,n) = \\frac{\\sqrt{min_h[MSE_h(\\hat f(0))]}}{f(0)}우리의 목표는 ORRMSE를 작게 유지하는 것이다. 차원 p가 올라가면 적정 샘플 사이즈 n은 그보다 훨씬 큰 폭으로 증가한다. Computational Statistics (Givens and Hoeting, Wiley) 에 제시된 예시에 대한 결과표를 보자.\n\n\n\n\np\nn\n\n\n\n\n1\n30\n\n\n2\n180\n\n\n3\n806\n\n\n5\n17,400\n\n\n10\n112,000,000\n\n\n15\n2,190,000,000,000\n\n\n30\n806,000,000,000,000,000,000,000,000\n\n\n\n\n변수가 수백 개인 데이터도 드물지 않은데, 그 때마다 어마어마한 양의 샘플을 준비하는 것은 현실적으로 불가능하다. 그렇다면 해결책은 하나 뿐이다. 차원을 줄이는 것이다.\n","dateCreated":"2020-11-01T08:01:12+09:00","dateModified":"2020-11-02T09:19:30+09:00","datePublished":"2020-11-01T08:01:12+09:00","description":"","headline":"Reducting Feature Dimensions","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/","keywords":"Data Science"}</script>
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png"},"articleBody":"차원 축소하기Curse of Dimensionality: 차원의 저주간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다.\n고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)\n\nn개의 points를 갖는 random sample에 대해 kernel density estimator을 정의하자.  (이 때, 해당 데이터는 p차원의 표준정규분포를 따른다고 가정한다.)  굳이 알 필요는 없지만, 진짜 mode에 대한 다변량 density estomator의 퀄리티를 판단하는 기준은 ORRMSE(Optimal Relative Root MSE)이다. ORRMSE의 식은 다음과 같다.\n\nORRMSE(p,n) = \\frac{\\sqrt{min_h[MSE_h(\\hat f(0))]}}{f(0)}우리의 목표는 ORRMSE를 작게 유지하는 것이다. 차원 p가 올라가면 적정 샘플 사이즈 n은 그보다 훨씬 큰 폭으로 증가한다. Computational Statistics (Givens and Hoeting, Wiley) 에 제시된 예시에 대한 결과표를 보자.\n\n\n\n\np\nn\n\n\n\n\n1\n30\n\n\n2\n180\n\n\n3\n806\n\n\n5\n17,400\n\n\n10\n112,000,000\n\n\n15\n2,190,000,000,000\n\n\n30\n806,000,000,000,000,000,000,000,000\n\n\n\n\n변수가 수백 개인 데이터도 드물지 않은데, 그 때마다 어마어마한 양의 샘플을 준비하는 것은 현실적으로 불가능하다. 그렇다면 해결책은 하나 뿐이다. 차원을 줄이는 것이다.\n","dateCreated":"2020-11-01T08:01:12+09:00","dateModified":"2020-11-02T09:19:30+09:00","datePublished":"2020-11-01T08:01:12+09:00","description":"","headline":"Reducting Feature Dimensions","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png","logo":{"@type":"ImageObject","url":"drowning.png"}},"url":"http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/","keywords":"Data Science"}</script>
     <meta name="description" content="차원 축소하기Curse of Dimensionality: 차원의 저주간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다. 고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)  n개의 points를 갖는 random sample에 대해 kernel dens">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Reducting Feature Dimensions">
@@ -31,6 +33,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://ioio-noo.github.io/assets/images/drowning.png"/>
     
     
     
@@ -55,6 +59,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -76,6 +84,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -83,8 +93,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">요요누</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -598,11 +626,17 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">요요누</h4>
         
@@ -916,5 +950,22 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>

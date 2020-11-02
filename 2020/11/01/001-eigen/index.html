@@ -10,8 +10,10 @@
     <meta name="author" content="요요누">
     
     
+        <link rel="icon" href="http://ioio-noo.github.io/assets/images/drowning.png">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"Eigenvalue, Eigenvectors\n\n위와 같이, 임의의 정방행렬 A에 대해 AB = λB인 (단, B는 0이 아닌 벡터) B를 eigenvector, 상수 λ를 eigenvalue 라고 한다.\nEigen Decomposition\nAv = \\lambda v \n\\\\ AQ = Q\\Lambda\n\\\\ A = Q\\Lambda Q^{-1}","dateCreated":"2020-11-01T02:57:25+09:00","dateModified":"2020-11-02T09:19:15+09:00","datePublished":"2020-11-01T02:57:25+09:00","description":"","headline":"Eigenvalue와 Eigenvectors","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/001-eigen/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/01/001-eigen/","keywords":"Eigenvalues, Eigenvectors, SVD"}</script>
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png"},"articleBody":"Eigenvalue, Eigenvectors\n\n위와 같이, 임의의 정방행렬 A에 대해 AB = λB인 (단, B는 0이 아닌 벡터) B를 eigenvector, 상수 λ를 eigenvalue 라고 한다.\nEigen Decomposition\nAv = \\lambda v \n\\\\ AQ = Q\\Lambda\n\\\\ A = Q\\Lambda Q^{-1}","dateCreated":"2020-11-01T02:57:25+09:00","dateModified":"2020-11-02T09:19:15+09:00","datePublished":"2020-11-01T02:57:25+09:00","description":"","headline":"Eigenvalue와 Eigenvectors","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/001-eigen/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png","logo":{"@type":"ImageObject","url":"drowning.png"}},"url":"http://ioio-noo.github.io/2020/11/01/001-eigen/","keywords":"Eigenvalues, Eigenvectors, SVD"}</script>
     <meta name="description" content="Eigenvalue, Eigenvectors  위와 같이, 임의의 정방행렬 A에 대해 AB &#x3D; λB인 (단, B는 0이 아닌 벡터) B를 eigenvector, 상수 λ를 eigenvalue 라고 한다. Eigen Decomposition Av &#x3D; \lambda v  \\ AQ &#x3D; Q\Lambda \\ A &#x3D; Q\Lambda Q^{-1}">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Eigenvalue와 Eigenvectors">
@@ -29,6 +31,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://ioio-noo.github.io/assets/images/drowning.png"/>
     
     
     
@@ -53,6 +57,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -74,6 +82,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -81,8 +91,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">요요누</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -549,11 +577,17 @@ Av = \lambda v
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">요요누</h4>
         
@@ -867,5 +901,22 @@ Av = \lambda v
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>

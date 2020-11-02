@@ -10,8 +10,10 @@
     <meta name="author" content="요요누">
     
     
+        <link rel="icon" href="http://ioio-noo.github.io/assets/images/drowning.png">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자.\n참고 decision boundary = cut-off value = threshold. 모두 같은 말이다.\n\nROC-AUC수신자 조작 특성 곡선, receiver operating characteristics curve 아래 면적이다. [0.5, 1.0] 범위 내에서 나타난다. 진짜 양성을 모두 잡아내고 위양성도 없어야 1이 될 수 있다. \n\n진양성률, True Positive Rate = sensitivity\n위양성률, False Positive Rate = 1 - specificity\n\n모형의 decision boundary가 이동하는 모양을 TPR-FPR 평면에 나타내면 y = x와 y = 1 사이에 위치하는 곡선이 만들어진다. 이 곡선이 ROC 커브고, 곡선 하단의 넓이가 ROC-AUC다. \nAccuracy정답률만 보고 싶다면 써도 좋지만, 그런 경우는 극히 드물다.\nPrecision/Recall\nprecision = \\frac{True\\,Positives}{TP +FP} = \\frac{양성으로\\,분류된\\,양성\\,수}{양성으로\\,분류된\\,케이스\\,수}\nrecall = \\frac{True\\,Positives}{TP+FN} = \\frac{양성으로\\,분류된\\,양성\\,수}{양성\\,수}위음성만 치명적이라면 recall을, 위양성만 치명적이라면 precision을 각각 단독 지표로 삼을 수도 있다.\n오분류율이 극히 낮지 않은 이상 두 지수는 trade-off 관계에 있는 경우가 많으며 이들을 엮어 PR-AUC를 측정하기도 한다. ROC-AUC만큼 로버스트하진 못하다.\nF1 Score\nF_1 = \\frac{2\\times precision\\times recall}{precision + recall}Precision과 recall의 조화평균. 두 수치를 모두 고려한 지표이다. 1에 가까울수록 좋다. 불균형 데이터에서도, 멀티클래스 데이터에서도, 불균형 멀티클래스 데이터에서도 쓸 수 있다.\n","dateCreated":"2020-11-02T09:06:30+09:00","dateModified":"2020-11-02T09:10:43+09:00","datePublished":"2020-11-02T09:06:30+09:00","description":"","headline":"Binary Classifier 평가하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"}</script>
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png"},"articleBody":"이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자.\n참고 decision boundary = cut-off value = threshold. 모두 같은 말이다.\n\nROC-AUC수신자 조작 특성 곡선, receiver operating characteristics curve 아래 면적이다. [0.5, 1.0] 범위 내에서 나타난다. 진짜 양성을 모두 잡아내고 위양성도 없어야 1이 될 수 있다. \n\n진양성률, True Positive Rate = sensitivity\n위양성률, False Positive Rate = 1 - specificity\n\n모형의 decision boundary가 이동하는 모양을 TPR-FPR 평면에 나타내면 y = x와 y = 1 사이에 위치하는 곡선이 만들어진다. 이 곡선이 ROC 커브고, 곡선 하단의 넓이가 ROC-AUC다. \nAccuracy정답률만 보고 싶다면 써도 좋지만, 그런 경우는 극히 드물다.\nPrecision/Recall\nprecision = \\frac{True\\,Positives}{TP +FP} = \\frac{양성으로\\,분류된\\,양성\\,수}{양성으로\\,분류된\\,케이스\\,수}\nrecall = \\frac{True\\,Positives}{TP+FN} = \\frac{양성으로\\,분류된\\,양성\\,수}{양성\\,수}위음성만 치명적이라면 recall을, 위양성만 치명적이라면 precision을 각각 단독 지표로 삼을 수도 있다.\n오분류율이 극히 낮지 않은 이상 두 지수는 trade-off 관계에 있는 경우가 많으며 이들을 엮어 PR-AUC를 측정하기도 한다. ROC-AUC만큼 로버스트하진 못하다.\nF1 Score\nF_1 = \\frac{2\\times precision\\times recall}{precision + recall}Precision과 recall의 조화평균. 두 수치를 모두 고려한 지표이다. 1에 가까울수록 좋다. 불균형 데이터에서도, 멀티클래스 데이터에서도, 불균형 멀티클래스 데이터에서도 쓸 수 있다.\n","dateCreated":"2020-11-02T09:06:30+09:00","dateModified":"2020-11-02T09:10:43+09:00","datePublished":"2020-11-02T09:06:30+09:00","description":"","headline":"Binary Classifier 평가하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png","logo":{"@type":"ImageObject","url":"drowning.png"}},"url":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"}</script>
     <meta name="description" content="이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자. 참고 decision boundary &#x3D; cut-off value &#x3D; threshold. 모두 같은 말이다.  ROC-AUC수신자 조작 특성 곡선, receiver operating characteristics curv">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Binary Classifier 평가하기">
@@ -28,6 +30,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://ioio-noo.github.io/assets/images/drowning.png"/>
     
     
     
@@ -52,6 +56,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -73,6 +81,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -80,8 +90,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">요요누</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -551,11 +579,17 @@ F_1 = \frac{2\times precision\times recall}{precision + recall}</script><p>Preci
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">요요누</h4>
         
@@ -869,5 +903,22 @@ F_1 = \frac{2\times precision\times recall}{precision + recall}</script><p>Preci
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>

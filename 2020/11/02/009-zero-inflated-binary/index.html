@@ -10,8 +10,10 @@
     <meta name="author" content="요요누">
     
     
+        <link rel="icon" href="http://ioio-noo.github.io/assets/images/drowning.png">
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"이 포스트는 석사 3학기 시절에 진행한 Macro 계정 감지 프로젝트를 떠올리며 작성 중이다. 초단위 위치 로그데이터 + IP에, 조사 기간 동안 몇 번을 앉고 뛰고 템줍을 했는지, 길드전엔 얼마나 나갔는지, 인간관계는 어땠는지 등등이 우르르 들어있는 어마어마한 데이터였다. \n지금 와서는 실시간 Anomaly Detection 쪽으로 알고리즘을 짰어도 좋았겠다는 생각이 들지만… 일단 정성껏 Binary Classification을 해 봤다는 데에 의의를 두고 있다.\ny = [Macro, Human]인 Binary 반응변수를 상정했다. 전형적인 영과잉(Zero-Inflated) 데이터이다. 개인적으로 매크로 하면 필드에 몰려다니는 작업장산 외계어 매크로군단부터 생각났는데 생각보다 매크로 비율이 낮았다 (…). 좀 다른 이야기지만 EDA에서 좀 주의 깊게 봤더니 매크로 하나당 플레이타임이 어마무시해서 그렇게 느껴진 것 같았다. 일당백이었던 모양이다..\n영과잉 이진 데이터는 핸들링이 까다롭다. 과적합에 이만큼 취약한 데이터도 드물다. (이진 데이터만 그런 건 아니다. Count 데이터는 푸아송이나 음이항 분포를 전제하는 경우가 많으며 이 경우에도 0이 나올 확률은 실제보다 작게 예측되곤 한다.) 적절한 전처리가 반드시 수반되어야 하며, 데이터 특성에 맞는 분류 알고리즘을 적절히 골라 주는 것이 좋다.\n\n전처리Random Over Sampling Examples 로 Training Set 를 구성했다. \n\nROSE\nRandom Over Sampling Examples\n영과잉 이진 데이터 예측력 개선\n학습에 사용될 데이터를 반복적으로 신규 합성생성(Synthetic Generation)\n범주 내 관측값 하나를 훈련셋에서 추출해, 그 주변(neighborhood)에서 학습사례를 만드는 식이다. Smoothed Bootstrap이 활용된다.\nSmoothed Bootstrap: 재표본추출 관측치에 정규 white noise 더해 생성. 과적합을 줄일 수 있다.\n\n\n\nSMOTE도 많이 이용하지만 이 데이터에는 ROSE가 나을 것이라 판단했다. ROSE는 SMOTE보다 관측치에 덜 종속적이다. 데이터의 단순복제와 손실 문제가 따른다. SMOTE의 특징도 함께 적어 둔다.\n\nSMOTE\nSynthetic Minority Oversampling TEch.\nk-NN을 기반으로 소수범주 데이터를 선형결합해 훈련셋 생성. k-NN은 태생적으로 고차원 데이터에 취약하다.\n\n\n\n그 외로도 ZIB(Zero-Inflated Binary), 오버샘플링, 언더샘플링 등의 접근법도 있지만 요즘은 거의 안 쓰이는 듯. \n\n모델링기말 프로젝트라 그냥 할 수 있는 방법론은 다 때려넣어서 해 봤다. 결과적으로 보면 워스트 = BZIP, 베스트 = XGB라 좀 김이 빠지긴 한다. 학습, 하이퍼파라미터 튜닝 모두 10-fold CV를 함께 진행했다.\n\nLogistic Regression\nSaturated Model이 제일 나아서 그냥 그걸 썼는데, 역시 일별 플레이타임이 제일 유의했다. 성능은 그냥저냥.\n\n\n\nBZIP: Bivariate 영과잉 포아송 모델\n 참고 ROSE 없이 따로 훈련셋을 구성해 주어야 한다. R 기준 glmmADMB에서 간단히 활용할 수 있다.\n\n\n\nLDA\n 참고 LDA과 LR은 모두 선형적 decision boundaries를 갖는다. 이는 다차원 데이터에서도 마찬가지이다. 그러나 두 경우의 결과가 항상 같게 나타나지는 않는데, LDA는 공통분산행렬을 갖는 가우시안 분포를 가정하므로 이 가정이 맞지 않는 경우 성능이 떨어질 수 있다.\n\n\n\nQDA\n 참고 LR, LDA와 비모수추정법인 k-NN방식 간의 절충안으로 생각할 수 있다. Quadratic decision boundary를 가정하므로 보다 다양한 경우에 이용 가능하다.\n\n\n\nk-NN\n 차원의 저주 하면 kNN이다. Accuracy, AUC가 나이브 베이즈와 자강두천이었다.\n\n\n\nRandom Forest\n 참고 Bootstrap 방식의 단점은 각 BS 샘플 간의 독립성이 확보된다고 가정하기 어렵다는 점에 있다. 랜덤포레스트 기법은 이를 보완하여, Bootstrap 샘플링 후 의사결정나무를 생성할 때 설명변수의 일부만을 사용한다. 조만간 이에 대해 정리한 글을 올릴 생각이다.\n (당연하지만) 부스팅을 제외한 모델들 중에선 제일 성능이 좋았다.\n\n\n\nNaive Bayes\n 참고 나이브 베이즈를 무시하지 말자. 간단한 베이지안 네트워크 모형이지만 적은 데이터에도 강한 성능을 보인다. (물론 각 변수 간의 독립성을 가정하기 때문에 독립성이 없는 모형에서는 그리 파워풀하지 못하다.) 학교 특성상 베이지안 예찬에 익숙한 걸 감안하더라도, 솔직히 차원의 저주에서 이만큼 자유로운 모형은 드물다. PCA만 잘 해도 일정 성능은 보장받는다니 얼마나 좋나 싶을 때가 많다.\n 물론 특출난 결과가 나오진 않았다. 특히 accuracy는 바닥을 쳤다… 그래도 90%는 넘었다…!\n\n\n\nSVM\n\n\nLGBM\n 참고 Gradient Boosting 방식의 프레임워크다. 즉, 트리 기반이다. 트리가 수직으로 확장된다는 점이 특징이다. 메모리가 적게 소비되고 빠르다. 정확도도 높다. 다만 과적합 위험이 따르므로 가급적 데이터가 클 때 쓰고, max depth가 너무 커지지 않도록 주의하도록 하자.\n\n\n\nAdaBoost\n참고 심플한 약분류기(Weak Classifier)들이 상호보완하도록 순차학습하는 알고리즘이다.  한 개씩 순차학습하며, 먼저 학습된 분류기가 뱉은 오답 정보를 다음 분류기 학습에 적용한다. 이전 분류기의 오분류 샘플에 대한 가중치를 adaptive하게 알터하고 이들을 적절히 조합해 강분류기의 성능을 높인다.\n성능은 XGB와 큰 차이 없이 준수하게 나타났다.\n\n\n\nXGBoost (Best)\n\n\n모델 평가AUC, accuracy, precision-recall, F1 score를 고려하였다.\n\n시각화같이 연구한 친구가 굉장히 멋진 그림을 그려왔었는데 [TN, FN, TP, FP]를 주요 Feature에 따라 나타낸 거였다. 각 캐릭터의 특징이 아주 잘 나타나서 정말 마음에 들었음. 내가 그린 게 아니라 올릴 수는 없다..\n\n단점Anomaly detection 쪽으로 갔으면 좋았을 것 같다고 생각한 이유가 이거다. 이렇게 특정 계정을 매크로라고 찍어내는 건 위양성에 대한 리스크가 크다.\n","dateCreated":"2020-11-02T09:06:12+09:00","dateModified":"2020-11-02T09:22:40+09:00","datePublished":"2020-11-02T09:06:12+09:00","description":"","headline":"Zero Inflated 데이터 이진분류","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/009-zero-inflated-binary/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/02/009-zero-inflated-binary/","keywords":"Data Science"}</script>
+    
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png"},"articleBody":"이 포스트는 석사 3학기 시절에 진행한 Macro 계정 감지 프로젝트를 떠올리며 작성 중이다. 초단위 위치 로그데이터 + IP에, 조사 기간 동안 몇 번을 앉고 뛰고 템줍을 했는지, 길드전엔 얼마나 나갔는지, 인간관계는 어땠는지 등등이 우르르 들어있는 어마어마한 데이터였다. \n지금 와서는 실시간 Anomaly Detection 쪽으로 알고리즘을 짰어도 좋았겠다는 생각이 들지만… 일단 정성껏 Binary Classification을 해 봤다는 데에 의의를 두고 있다.\ny = [Macro, Human]인 Binary 반응변수를 상정했다. 전형적인 영과잉(Zero-Inflated) 데이터이다. 개인적으로 매크로 하면 필드에 몰려다니는 작업장산 외계어 매크로군단부터 생각났는데 생각보다 매크로 비율이 낮았다 (…). 좀 다른 이야기지만 EDA에서 좀 주의 깊게 봤더니 매크로 하나당 플레이타임이 어마무시해서 그렇게 느껴진 것 같았다. 일당백이었던 모양이다..\n영과잉 이진 데이터는 핸들링이 까다롭다. 과적합에 이만큼 취약한 데이터도 드물다. (이진 데이터만 그런 건 아니다. Count 데이터는 푸아송이나 음이항 분포를 전제하는 경우가 많으며 이 경우에도 0이 나올 확률은 실제보다 작게 예측되곤 한다.) 적절한 전처리가 반드시 수반되어야 하며, 데이터 특성에 맞는 분류 알고리즘을 적절히 골라 주는 것이 좋다.\n\n전처리Random Over Sampling Examples 로 Training Set 를 구성했다. \n\nROSE\nRandom Over Sampling Examples\n영과잉 이진 데이터 예측력 개선\n학습에 사용될 데이터를 반복적으로 신규 합성생성(Synthetic Generation)\n범주 내 관측값 하나를 훈련셋에서 추출해, 그 주변(neighborhood)에서 학습사례를 만드는 식이다. Smoothed Bootstrap이 활용된다.\nSmoothed Bootstrap: 재표본추출 관측치에 정규 white noise 더해 생성. 과적합을 줄일 수 있다.\n\n\n\nSMOTE도 많이 이용하지만 이 데이터에는 ROSE가 나을 것이라 판단했다. ROSE는 SMOTE보다 관측치에 덜 종속적이다. 데이터의 단순복제와 손실 문제가 따른다. SMOTE의 특징도 함께 적어 둔다.\n\nSMOTE\nSynthetic Minority Oversampling TEch.\nk-NN을 기반으로 소수범주 데이터를 선형결합해 훈련셋 생성. k-NN은 태생적으로 고차원 데이터에 취약하다.\n\n\n\n그 외로도 ZIB(Zero-Inflated Binary), 오버샘플링, 언더샘플링 등의 접근법도 있지만 요즘은 거의 안 쓰이는 듯. \n\n모델링기말 프로젝트라 그냥 할 수 있는 방법론은 다 때려넣어서 해 봤다. 결과적으로 보면 워스트 = BZIP, 베스트 = XGB라 좀 김이 빠지긴 한다. 학습, 하이퍼파라미터 튜닝 모두 10-fold CV를 함께 진행했다.\n\nLogistic Regression\nSaturated Model이 제일 나아서 그냥 그걸 썼는데, 역시 일별 플레이타임이 제일 유의했다. 성능은 그냥저냥.\n\n\n\nBZIP: Bivariate 영과잉 포아송 모델\n 참고 ROSE 없이 따로 훈련셋을 구성해 주어야 한다. R 기준 glmmADMB에서 간단히 활용할 수 있다.\n\n\n\nLDA\n 참고 LDA과 LR은 모두 선형적 decision boundaries를 갖는다. 이는 다차원 데이터에서도 마찬가지이다. 그러나 두 경우의 결과가 항상 같게 나타나지는 않는데, LDA는 공통분산행렬을 갖는 가우시안 분포를 가정하므로 이 가정이 맞지 않는 경우 성능이 떨어질 수 있다.\n\n\n\nQDA\n 참고 LR, LDA와 비모수추정법인 k-NN방식 간의 절충안으로 생각할 수 있다. Quadratic decision boundary를 가정하므로 보다 다양한 경우에 이용 가능하다.\n\n\n\nk-NN\n 차원의 저주 하면 kNN이다. Accuracy, AUC가 나이브 베이즈와 자강두천이었다.\n\n\n\nRandom Forest\n 참고 Bootstrap 방식의 단점은 각 BS 샘플 간의 독립성이 확보된다고 가정하기 어렵다는 점에 있다. 랜덤포레스트 기법은 이를 보완하여, Bootstrap 샘플링 후 의사결정나무를 생성할 때 설명변수의 일부만을 사용한다. 조만간 이에 대해 정리한 글을 올릴 생각이다.\n (당연하지만) 부스팅을 제외한 모델들 중에선 제일 성능이 좋았다.\n\n\n\nNaive Bayes\n 참고 나이브 베이즈를 무시하지 말자. 간단한 베이지안 네트워크 모형이지만 적은 데이터에도 강한 성능을 보인다. (물론 각 변수 간의 독립성을 가정하기 때문에 독립성이 없는 모형에서는 그리 파워풀하지 못하다.) 학교 특성상 베이지안 예찬에 익숙한 걸 감안하더라도, 솔직히 차원의 저주에서 이만큼 자유로운 모형은 드물다. PCA만 잘 해도 일정 성능은 보장받는다니 얼마나 좋나 싶을 때가 많다.\n 물론 특출난 결과가 나오진 않았다. 특히 accuracy는 바닥을 쳤다… 그래도 90%는 넘었다…!\n\n\n\nSVM\n\n\nLGBM\n 참고 Gradient Boosting 방식의 프레임워크다. 즉, 트리 기반이다. 트리가 수직으로 확장된다는 점이 특징이다. 메모리가 적게 소비되고 빠르다. 정확도도 높다. 다만 과적합 위험이 따르므로 가급적 데이터가 클 때 쓰고, max depth가 너무 커지지 않도록 주의하도록 하자.\n\n\n\nAdaBoost\n참고 심플한 약분류기(Weak Classifier)들이 상호보완하도록 순차학습하는 알고리즘이다.  한 개씩 순차학습하며, 먼저 학습된 분류기가 뱉은 오답 정보를 다음 분류기 학습에 적용한다. 이전 분류기의 오분류 샘플에 대한 가중치를 adaptive하게 알터하고 이들을 적절히 조합해 강분류기의 성능을 높인다.\n성능은 XGB와 큰 차이 없이 준수하게 나타났다.\n\n\n\nXGBoost (Best)\n\n\n모델 평가AUC, accuracy, precision-recall, F1 score를 고려하였다.\n\n시각화같이 연구한 친구가 굉장히 멋진 그림을 그려왔었는데 [TN, FN, TP, FP]를 주요 Feature에 따라 나타낸 거였다. 각 캐릭터의 특징이 아주 잘 나타나서 정말 마음에 들었음. 내가 그린 게 아니라 올릴 수는 없다..\n\n단점Anomaly detection 쪽으로 갔으면 좋았을 것 같다고 생각한 이유가 이거다. 이렇게 특정 계정을 매크로라고 찍어내는 건 위양성에 대한 리스크가 크다.\n","dateCreated":"2020-11-02T09:06:12+09:00","dateModified":"2020-11-02T09:22:40+09:00","datePublished":"2020-11-02T09:06:12+09:00","description":"","headline":"Zero Inflated 데이터 이진분류","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/009-zero-inflated-binary/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"drowning.png","logo":{"@type":"ImageObject","url":"drowning.png"}},"url":"http://ioio-noo.github.io/2020/11/02/009-zero-inflated-binary/","keywords":"Data Science"}</script>
     <meta name="description" content="이 포스트는 석사 3학기 시절에 진행한 Macro 계정 감지 프로젝트를 떠올리며 작성 중이다. 초단위 위치 로그데이터 + IP에, 조사 기간 동안 몇 번을 앉고 뛰고 템줍을 했는지, 길드전엔 얼마나 나갔는지, 인간관계는 어땠는지 등등이 우르르 들어있는 어마어마한 데이터였다.  지금 와서는 실시간 Anomaly Detection 쪽으로 알고리즘을 짰어도 좋았">
 <meta property="og:type" content="blog">
 <meta property="og:title" content="Zero Inflated 데이터 이진분류">
@@ -29,6 +31,8 @@
     
         
     
+    
+        <meta property="og:image" content="http://ioio-noo.github.io/assets/images/drowning.png"/>
     
     
     
@@ -53,6 +57,10 @@
 
 
     
+        
+            
+        
+    
 
 <header id="header" data-behavior="5">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
@@ -74,6 +82,8 @@
             >
         
         
+            <img class="header-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+        
         </a>
     
 </header>
@@ -81,8 +91,26 @@
             <!-- Define author's picture -->
 
 
+
+        
+    
+
 <nav id="sidebar" data-behavior="5">
     <div class="sidebar-container">
+        
+            <div class="sidebar-profile">
+                <a
+                    href="/#about"
+                    aria-label="Read more about the author"
+                >
+                    <img class="sidebar-profile-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
+                </a>
+                <h4 class="sidebar-profile-name">요요누</h4>
+                
+                    <h5 class="sidebar-profile-bio"><p>author.bio</p>
+</h5>
+                
+            </div>
         
         
             <ul class="sidebar-buttons">
@@ -630,11 +658,17 @@
         
 
 
+    
+        
+    
+
 <div id="about">
     <div id="about-card">
         <div id="about-btn-close">
             <i class="fa fa-times"></i>
         </div>
+        
+            <img id="about-card-picture" src="/assets/images/drowning.png" alt="Author&#39;s picture"/>
         
             <h4 id="about-card-name">요요누</h4>
         
@@ -948,5 +982,22 @@
     </script>
 
 
-    </body>
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<!-- <script src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script> -->
+<script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML'></script>
+
+</body>
 </html>
