@@ -6,26 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="데이터 바다의 요요누">
-    <title>Reducting Feature Dimensions - 데이터 바다의 요요누</title>
+    <title>010-bc-assessments - 데이터 바다의 요요누</title>
     <meta name="author" content="요요누">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"차원 축소하기Curse of Dimensionality: 차원의 저주간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다.\n고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)\n\nn개의 points를 갖는 random sample에 대해 kernel density estimator을 정의하자.  (이 때, 해당 데이터는 p차원의 표준정규분포를 따른다고 가정한다.)  굳이 알 필요는 없지만, 진짜 mode에 대한 다변량 density estomator의 퀄리티를 판단하는 기준은 ORRMSE(Optimal Relative Root MSE)이다. ORRMSE의 식은 다음과 같다.\n\nORRMSE(p,n) = \\frac{\\sqrt{min_h[MSE_h(\\hat f(0))]}}{f(0)}우리의 목표는 ORRMSE를 작게 유지하는 것이다. 차원 p가 올라가면 적정 샘플 사이즈 n은 그보다 훨씬 큰 폭으로 증가한다. Computational Statistics (Givens and Hoeting, Wiley) 에 제시된 예시에 대한 결과표를 보자.\n\n\n\n\np\nn\n\n\n\n\n1\n30\n\n\n2\n180\n\n\n3\n806\n\n\n5\n17,400\n\n\n10\n112,000,000\n\n\n15\n2,190,000,000,000\n\n\n30\n806,000,000,000,000,000,000,000,000\n\n\n\n\n변수가 수백 개인 데이터도 드물지 않은데, 그 때마다 어마어마한 양의 샘플을 준비하는 것은 현실적으로 불가능하다. 그렇다면 해결책은 하나 뿐이다. 차원을 줄이는 것이다.\n","dateCreated":"2020-11-01T08:01:12+09:00","dateModified":"2020-11-01T12:28:09+09:00","datePublished":"2020-11-01T08:01:12+09:00","description":"","headline":"Reducting Feature Dimensions","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/","keywords":"Data Science"}</script>
-    <meta name="description" content="차원 축소하기Curse of Dimensionality: 차원의 저주간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다. 고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)  n개의 points를 갖는 random sample에 대해 kernel dens">
-<meta property="og:type" content="blog">
-<meta property="og:title" content="Reducting Feature Dimensions">
-<meta property="og:url" content="http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/index.html">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"","dateCreated":"2020-11-02T09:06:30+09:00","dateModified":"2020-11-02T09:06:30+09:00","datePublished":"2020-11-02T09:06:30+09:00","description":"","headline":"010-bc-assessments","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="010-bc-assessments">
+<meta property="og:url" content="http://ioio-noo.github.io/2020/11/02/010-bc-assessments/index.html">
 <meta property="og:site_name" content="데이터 바다의 요요누">
-<meta property="og:description" content="차원 축소하기Curse of Dimensionality: 차원의 저주간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다. 고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)  n개의 points를 갖는 random sample에 대해 kernel dens">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/curse-of-dimensionality-61461.jpg">
-<meta property="article:published_time" content="2020-10-31T23:01:12.000Z">
-<meta property="article:modified_time" content="2020-11-01T03:28:09.115Z">
+<meta property="article:published_time" content="2020-11-02T00:06:30.000Z">
+<meta property="article:modified_time" content="2020-11-02T00:06:30.180Z">
 <meta property="article:author" content="요요누">
-<meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/curse-of-dimensionality-61461.jpg">
 <meta name="twitter:creator" content="@ioio5252">
     
     
@@ -244,14 +239,14 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            Reducting Feature Dimensions
+            010-bc-assessments
         </h1>
     
     
         <div class="post-meta">
-    <time datetime="2020-11-01T08:01:12+09:00">
+    <time datetime="2020-11-02T09:06:30+09:00">
 	
-		    Nov 01, 2020
+		    Nov 02, 2020
     	
     </time>
     
@@ -263,54 +258,7 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            <h2 id="차원-축소하기"><a href="#차원-축소하기" class="headerlink" title="차원 축소하기"></a>차원 축소하기</h2><h3 id="Curse-of-Dimensionality-차원의-저주"><a href="#Curse-of-Dimensionality-차원의-저주" class="headerlink" title="Curse of Dimensionality: 차원의 저주"></a>Curse of Dimensionality: 차원의 저주</h3><p>간단히 말해 고차원 데이터를 경계해야 한다는 뜻이다.</p>
-<p>고차원 공간은 엄청나게 넓기 때문에 공간 속에 있는 데이터 포인트는 매우 외로운 나날을 보내게 된다. (near neighbor의 수가 적다고 표현한다.)</p>
-<img src="/2020/11/01/003-curse-of-dimensionality/curse-of-dimensionality-61461.jpg" class="">
-<p>n개의 points를 갖는 random sample에 대해 kernel density estimator을 정의하자.  (이 때, 해당 데이터는 p차원의 표준정규분포를 따른다고 가정한다.)  굳이 알 필요는 없지만, 진짜 mode에 대한 다변량 density estomator의 퀄리티를 판단하는 기준은 <strong>ORRMSE</strong>(Optimal Relative Root MSE)이다. ORRMSE의 식은 다음과 같다.</p>
-<script type="math/tex; mode=display">
-ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 목표는 ORRMSE를 작게 유지하는 것이다. 차원 p가 올라가면 적정 샘플 사이즈 n은 그보다 훨씬 큰 폭으로 증가한다. Computational Statistics (Givens and Hoeting, Wiley) 에 제시된 예시에 대한 결과표를 보자.</p>
-<div class="table-container">
-<table>
-<thead>
-<tr>
-<th>p</th>
-<th style="text-align:right">n</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>1</td>
-<td style="text-align:right">30</td>
-</tr>
-<tr>
-<td>2</td>
-<td style="text-align:right">180</td>
-</tr>
-<tr>
-<td>3</td>
-<td style="text-align:right">806</td>
-</tr>
-<tr>
-<td>5</td>
-<td style="text-align:right">17,400</td>
-</tr>
-<tr>
-<td>10</td>
-<td style="text-align:right">112,000,000</td>
-</tr>
-<tr>
-<td>15</td>
-<td style="text-align:right">2,190,000,000,000</td>
-</tr>
-<tr>
-<td>30</td>
-<td style="text-align:right">806,000,000,000,000,000,000,000,000</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>변수가 수백 개인 데이터도 드물지 않은데, 그 때마다 어마어마한 양의 샘플을 준비하는 것은 현실적으로 불가능하다. 그렇다면 해결책은 하나 뿐이다. 차원을 줄이는 것이다.</p>
-
+            
             
 
 
@@ -318,27 +266,17 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
     </div>
     <div id="post-footer" class="post-footer main-content-wrap">
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/Data-Science/" rel="tag">Data Science</a>
-
-            </div>
-        
         
             <div class="post-actions-wrap">
     <nav>
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/01/004-lift/"
-                    data-tooltip="004-lift"
-                    aria-label="PREVIOUS: 004-lift"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -348,9 +286,9 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/01/002-CF/"
-                    data-tooltip="Collaborative Filtering"
-                    aria-label="NEXT: Collaborative Filtering"
+                    href="/2020/11/02/009-zero-inflated-binary/"
+                    data-tooltip="009-zero-inflated-binary"
+                    aria-label="NEXT: 009-zero-inflated-binary"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -375,7 +313,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -388,7 +326,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -401,7 +339,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                    target="new" href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -446,14 +384,11 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/01/004-lift/"
-                    data-tooltip="004-lift"
-                    aria-label="PREVIOUS: 004-lift"
-                >
-                    
+                    <a
+                        class="post-action-btn btn btn--disabled"
+                        aria-hidden="true"
+                    >
+                        
                         <i class="fa fa-angle-left" aria-hidden="true"></i>
                         <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
                     </a>
@@ -463,9 +398,9 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
                     
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/01/002-CF/"
-                    data-tooltip="Collaborative Filtering"
-                    aria-label="NEXT: Collaborative Filtering"
+                    href="/2020/11/02/009-zero-inflated-binary/"
+                    data-tooltip="009-zero-inflated-binary"
+                    aria-label="NEXT: 009-zero-inflated-binary"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -490,7 +425,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                     title="Share on Facebook"
                     aria-label="Share on Facebook"
                 >
@@ -503,7 +438,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                    target="new" href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                     title="Share on Twitter"
                     aria-label="Share on Twitter"
                 >
@@ -516,7 +451,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
             <li class="post-action hide-xs">
                 <a
                     class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                    target="new" href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                     title="Share on Google+"
                     aria-label="Share on Google+"
                 >
@@ -550,7 +485,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                        href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                         aria-label="Share on Facebook"
                     >
                         <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
@@ -563,7 +498,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                        href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                         aria-label="Share on Twitter"
                     >
                         <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
@@ -576,7 +511,7 @@ ORRMSE(p,n) = \frac{\sqrt{min_h[MSE_h(\hat f(0))]}}{f(0)}</script><p>우리의 �
                     <a
                         class="share-option-btn"
                         target="new"
-                        href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/01/003-curse-of-dimensionality/"
+                        href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
                         aria-label="Share on Google+"
                     >
                         <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
