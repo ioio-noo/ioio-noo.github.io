@@ -6,19 +6,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="데이터 바다의 요요누">
-    <title>010-bc-assessments - 데이터 바다의 요요누</title>
+    <title>Binary Classifier 평가하기 - 데이터 바다의 요요누</title>
     <meta name="author" content="요요누">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"","dateCreated":"2020-11-02T09:06:30+09:00","dateModified":"2020-11-02T09:06:30+09:00","datePublished":"2020-11-02T09:06:30+09:00","description":"","headline":"010-bc-assessments","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"}</script>
-    <meta property="og:type" content="blog">
-<meta property="og:title" content="010-bc-assessments">
+    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자.\n참고 decision boundary = cut-off value = threshold. 모두 같은 말이다.\n\nROC-AUC수신자 조작 특성 곡선, receiver operating characteristics curve 아래 면적이다. [0.5, 1.0] 범위 내에서 나타난다. 진짜 양성을 모두 잡아내고 위양성도 없어야 1이 될 수 있다. \n\n진양성률, True Positive Rate = sensitivity\n위양성률, False Positive Rate = 1 - specificity\n\n모형의 decision boundary가 이동하는 모양을 TPR-FPR 평면에 나타내면 y = x와 y = 1 사이에 위치하는 곡선이 만들어진다. 이 곡선이 ROC 커브고, 곡선 하단의 넓이가 ROC-AUC다. \nAccuracy정답률만 보고 싶다면 써도 좋지만, 그런 경우는 극히 드물다.\nPrecision/Recall\nprecision = \\frac{True\\,Positives}{TP +FP} = \\frac{양성으로\\,분류된\\,양성\\,수}{양성으로\\,분류된\\,케이스\\,수}\nrecall = \\frac{True\\,Positives}{TP+FN} = \\frac{양성으로\\,분류된\\,양성\\,수}{양성\\,수}위음성만 치명적이라면 recall을, 위양성만 치명적이라면 precision을 각각 단독 지표로 삼을 수도 있다.\n오분류율이 극히 낮지 않은 이상 두 지수는 trade-off 관계에 있는 경우가 많으며 이들을 엮어 PR-AUC를 측정하기도 한다. ROC-AUC만큼 로버스트하진 못하다.\nF1 Score\nF_1 = \\frac{2\\times precision\\times recall}{precision + recall}Precision과 recall의 조화평균. 두 수치를 모두 고려한 지표이다. 1에 가까울수록 좋다. 불균형 데이터에서도, 멀티클래스 데이터에서도, 불균형 멀티클래스 데이터에서도 쓸 수 있다.\n","dateCreated":"2020-11-02T09:06:30+09:00","dateModified":"2020-11-02T09:10:43+09:00","datePublished":"2020-11-02T09:06:30+09:00","description":"","headline":"Binary Classifier 평가하기","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"}</script>
+    <meta name="description" content="이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자. 참고 decision boundary &#x3D; cut-off value &#x3D; threshold. 모두 같은 말이다.  ROC-AUC수신자 조작 특성 곡선, receiver operating characteristics curv">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="Binary Classifier 평가하기">
 <meta property="og:url" content="http://ioio-noo.github.io/2020/11/02/010-bc-assessments/index.html">
 <meta property="og:site_name" content="데이터 바다의 요요누">
+<meta property="og:description" content="이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자. 참고 decision boundary &#x3D; cut-off value &#x3D; threshold. 모두 같은 말이다.  ROC-AUC수신자 조작 특성 곡선, receiver operating characteristics curv">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-11-02T00:06:30.000Z">
-<meta property="article:modified_time" content="2020-11-02T00:06:30.180Z">
+<meta property="article:modified_time" content="2020-11-02T00:10:43.667Z">
 <meta property="article:author" content="요요누">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:creator" content="@ioio5252">
@@ -239,7 +241,7 @@
         <div class="post-header main-content-wrap text-left">
     
         <h1 class="post-title">
-            010-bc-assessments
+            Binary Classifier 평가하기
         </h1>
     
     
@@ -250,6 +252,12 @@
     	
     </time>
     
+        <span>in </span>
+        
+    <a class="category-link" href="/categories/Data-Science/">Data Science</a>
+
+
+    
 </div>
 
     
@@ -258,7 +266,23 @@
     
     <div class="post-content markdown">
         <div class="main-content-wrap">
-            
+            <p>이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자.</p>
+<p><strong>참고</strong> decision boundary = cut-off value = threshold. 모두 같은 말이다.</p>
+<hr>
+<h4 id="ROC-AUC"><a href="#ROC-AUC" class="headerlink" title="ROC-AUC"></a>ROC-AUC</h4><p>수신자 조작 특성 곡선, receiver operating characteristics curve 아래 면적이다. [0.5, 1.0] 범위 내에서 나타난다. 진짜 양성을 모두 잡아내고 위양성도 없어야 1이 될 수 있다. </p>
+<ul>
+<li>진양성률, True Positive Rate = sensitivity</li>
+<li>위양성률, False Positive Rate = 1 - specificity</li>
+</ul>
+<p>모형의 decision boundary가 이동하는 모양을 TPR-FPR 평면에 나타내면 y = x와 y = 1 사이에 위치하는 곡선이 만들어진다. 이 곡선이 ROC 커브고, 곡선 하단의 넓이가 ROC-AUC다. </p>
+<h4 id="Accuracy"><a href="#Accuracy" class="headerlink" title="Accuracy"></a>Accuracy</h4><p>정답률만 보고 싶다면 써도 좋지만, 그런 경우는 극히 드물다.</p>
+<h4 id="Precision-Recall"><a href="#Precision-Recall" class="headerlink" title="Precision/Recall"></a>Precision/Recall</h4><script type="math/tex; mode=display">
+precision = \frac{True\,Positives}{TP +FP} = \frac{양성으로\,분류된\,양성\,수}{양성으로\,분류된\,케이스\,수}</script><script type="math/tex; mode=display">
+recall = \frac{True\,Positives}{TP+FN} = \frac{양성으로\,분류된\,양성\,수}{양성\,수}</script><p>위음성만 치명적이라면 recall을, 위양성만 치명적이라면 precision을 각각 단독 지표로 삼을 수도 있다.</p>
+<p>오분류율이 극히 낮지 않은 이상 두 지수는 trade-off 관계에 있는 경우가 많으며 이들을 엮어 PR-AUC를 측정하기도 한다. ROC-AUC만큼 로버스트하진 못하다.</p>
+<h4 id="F1-Score"><a href="#F1-Score" class="headerlink" title="F1 Score"></a>F1 Score</h4><script type="math/tex; mode=display">
+F_1 = \frac{2\times precision\times recall}{precision + recall}</script><p>Precision과 recall의 조화평균. 두 수치를 모두 고려한 지표이다. 1에 가까울수록 좋다. 불균형 데이터에서도, 멀티클래스 데이터에서도, 불균형 멀티클래스 데이터에서도 쓸 수 있다.</p>
+
             
 
 
@@ -287,8 +311,8 @@
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
                     href="/2020/11/02/009-zero-inflated-binary/"
-                    data-tooltip="009-zero-inflated-binary"
-                    aria-label="NEXT: 009-zero-inflated-binary"
+                    data-tooltip="Zero Inflated 데이터 이진분류"
+                    aria-label="NEXT: Zero Inflated 데이터 이진분류"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -399,8 +423,8 @@
                 <a
                     class="post-action-btn btn btn--default tooltip--top"
                     href="/2020/11/02/009-zero-inflated-binary/"
-                    data-tooltip="009-zero-inflated-binary"
-                    aria-label="NEXT: 009-zero-inflated-binary"
+                    data-tooltip="Zero Inflated 데이터 이진분류"
+                    aria-label="NEXT: Zero Inflated 데이터 이진분류"
                 >
                     
                         <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
@@ -766,9 +790,9 @@
                         <a
                             class="link-unstyled"
                             href="http://ioio-noo.github.io/2020/11/02/009-zero-inflated-binary/"
-                            aria-label=": 009-zero-inflated-binary"
+                            aria-label=": Zero Inflated 데이터 이진분류"
                         >
-                            <h3 class="media-heading">009-zero-inflated-binary</h3>
+                            <h3 class="media-heading">Zero Inflated 데이터 이진분류</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">
@@ -789,9 +813,9 @@
                         <a
                             class="link-unstyled"
                             href="http://ioio-noo.github.io/2020/11/02/010-bc-assessments/"
-                            aria-label=": 010-bc-assessments"
+                            aria-label=": Binary Classifier 평가하기"
                         >
-                            <h3 class="media-heading">010-bc-assessments</h3>
+                            <h3 class="media-heading">Binary Classifier 평가하기</h3>
                         </a>
                         <span class="media-meta">
                             <span class="media-date text-small">

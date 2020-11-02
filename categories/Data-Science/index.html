@@ -6,28 +6,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="generator" content="데이터 바다의 요요누">
-    <title>k-Means - 데이터 바다의 요요누</title>
+    <title>Category: Data Science - 데이터 바다의 요요누</title>
     <meta name="author" content="요요누">
     
     
     
-    <script type="application/ld+json">{"@context":"http://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"},"articleBody":"\nk-Means Clustering각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다.\n알고리즘 개요\n\nInput: k = Number of clusters to be used\nx, y = two numeric vectors identical in lengths\n\nx와 y의 random cluster centers 생성:x.centers ~ Unif( min(x), max(x) )y.centers ~ Unif( min(y), max(y) )\n\ni = 1, 2, … , length(x)일 때x[i]와 x.centers, y[i]와 y.centers 간의 거리를 통해 유클리드 거리 측정개중 가장 거리가 가깝게 나타나는 x.center, y.center 쌍에 해당하는 cluster를 해당 점에 매칭\n\nsubset(x, cluster)의 평균 계산 후 이 값과 기존의 x.center, y.center이 동일하면 loop 중단\n\n\n\n\n빠르다.\nk-Median, k-Means++, k-Medoid 등의 변형이 있다.\nElbow Method: within-cluster sum of squares를 line chart로 나타내어 눈에 띄게 꺾이는 부분을 클러스터 개수로 설정하는 경우가 많다.\n\nx, y에 각각 N(10, 4), N(-10, 2)를 따르는 50개의 난수를 부여하고, 이를 클러스터링하였다.\nk값에 따른 클러스터의 분포는 다음과 같이 나타난다.\n\n\nPartitioning Around Medoids (PAM)\nk-Medoid 클러스터링 중 가장 널리 쓰이는 알고리즘이다.\n\n노이즈와 이상치에 보다 Robust하다.\n해석이 용이하다.\n\nGreedy Search: 최적치에 도달하지 못할 수 있다. 그래도 Exhaustive Search보단 훨씬 빠르다.\n\n\n알고리즘 개요\n\nInitialize: greedily select k of the n data points as the medoids to minimize the cost\nAssociate each data point to the closest medoid.\nWhile the cost of the configuration decreases:\nFor each medoid m, and for each non-medoid data point o:\nConsider the swap of m and o, and compute the cost change\nIf the cost change is the current best, remember this m and o combination\n\n\nPerform the best swap of $m_{best}$and $o_{best}$, if it decreases the cost function. Otherwise, the algorithm terminates.\n\n\n\n\n대푯값(medoid)을 도출하는 데에는 Gower’s Distance를 활용할 수 있다.\n\n","dateCreated":"2020-11-01T11:52:39+09:00","dateModified":"2020-11-01T12:41:48+09:00","datePublished":"2020-11-01T11:52:39+09:00","description":"","headline":"k-Means","image":[],"mainEntityOfPage":{"@type":"WebPage","@id":"http://ioio-noo.github.io/2020/11/01/006-k-means/"},"publisher":{"@type":"Organization","name":"요요누","sameAs":["https://twitter.com/ioio5252","mailto:nokoquest@gmail.com"],"image":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3","logo":{"@type":"ImageObject","url":"https://www.gravatar.com/avatar/53a44964d8c6364753659fb504afd5e3"}},"url":"http://ioio-noo.github.io/2020/11/01/006-k-means/","keywords":"Data Science"}</script>
-    <meta name="description" content="k-Means Clustering각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다. 알고리즘 개요  Input: k &#x3D; Number of clusters to be used x, y &#x3D; two numeric vectors identical in lengths  x와 y의 random cluster centers">
-<meta property="og:type" content="blog">
-<meta property="og:title" content="k-Means">
-<meta property="og:url" content="http://ioio-noo.github.io/2020/11/01/006-k-means/index.html">
+    <script type="application/ld+json">{}</script>
+    <meta property="og:type" content="blog">
+<meta property="og:title" content="데이터 바다의 요요누">
+<meta property="og:url" content="http://ioio-noo.github.io/categories/Data-Science/index.html">
 <meta property="og:site_name" content="데이터 바다의 요요누">
-<meta property="og:description" content="k-Means Clustering각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다. 알고리즘 개요  Input: k &#x3D; Number of clusters to be used x, y &#x3D; two numeric vectors identical in lengths  x와 y의 random cluster centers">
 <meta property="og:locale" content="en_US">
-<meta property="og:image" content="http://ioio-noo.github.io/2020/11/01/006-k-means/image-20201101104839137.png">
-<meta property="og:image" content="http://ioio-noo.github.io/2020/11/01/006-k-means/350px-K-Medoids_Clustering.gif">
-<meta property="og:image" content="http://ioio-noo.github.io/2020/11/01/006-k-means/image-20201101110638616.png">
-<meta property="article:published_time" content="2020-11-01T02:52:39.000Z">
-<meta property="article:modified_time" content="2020-11-01T03:41:48.055Z">
 <meta property="article:author" content="요요누">
-<meta property="article:tag" content="Data Science">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="http://ioio-noo.github.io/2020/11/01/006-k-means/image-20201101104839137.png">
 <meta name="twitter:creator" content="@ioio5252">
     
     
@@ -47,8 +38,6 @@
     
 
     
-        
-    
 </head>
 
     <body>
@@ -58,7 +47,7 @@
 
     
 
-<header id="header" data-behavior="5">
+<header id="header" data-behavior="2">
     <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
     <div class="header-title">
         <a
@@ -85,7 +74,7 @@
             <!-- Define author's picture -->
 
 
-<nav id="sidebar" data-behavior="5">
+<nav id="sidebar" data-behavior="2">
     <div class="sidebar-container">
         
         
@@ -235,205 +224,95 @@
 </nav>
 
             
-            <div id="main" data-behavior="5"
+            <div id="main" data-behavior="2"
                  class="
                         hasCoverMetaIn
                         ">
                 
-<article class="post">
+    <section class="postShorten-group main-content-wrap">
     
     
-        <div class="post-header main-content-wrap text-left">
-    
-        <h1 class="post-title">
-            k-Means
-        </h1>
-    
-    
-        <div class="post-meta">
-    <time datetime="2020-11-01T11:52:39+09:00">
+    <article class="postShorten postShorten--thumbnailimg-bottom">
+        <div class="postShorten-wrap">
+            
+            <div class="postShorten-header">
+                <h1 class="postShorten-title">
+                    
+                        <a
+                            class="link-unstyled"
+                            href="/2020/11/02/010-bc-assessments/"
+                            aria-label=": Binary Classifier 평가하기"
+                        >
+                            Binary Classifier 평가하기
+                        </a>
+                    
+                </h1>
+                <div class="postShorten-meta">
+    <time datetime="2020-11-02T09:06:30+09:00">
 	
-		    Nov 01, 2020
+		    Nov 02, 2020
     	
     </time>
     
-</div>
-
-    
-</div>
-
-    
-    <div class="post-content markdown">
-        <div class="main-content-wrap">
-            <hr>
-<h2 id="k-Means-Clustering"><a href="#k-Means-Clustering" class="headerlink" title="k-Means Clustering"></a>k-Means Clustering</h2><p>각 클러스터와 거리 차이의 분산을 최소화하는 방식이다. EM식 클러스터링과 유사한 면이 있다.</p>
-<h4 id="알고리즘-개요"><a href="#알고리즘-개요" class="headerlink" title="알고리즘 개요"></a>알고리즘 개요</h4><blockquote>
-<ol>
-<li><p>Input: k = Number of clusters to be used</p>
-<pre><code>x, y = two numeric vectors identical in lengths
-</code></pre></li>
-<li><p>x와 y의 random cluster centers 생성:<br>x.centers ~ Unif( min(x), max(x) )<br>y.centers ~ Unif( min(y), max(y) )</p>
-</li>
-<li><p>i = 1, 2, … , length(x)일 때<br>x[i]와 x.centers, y[i]와 y.centers 간의 거리를 통해 유클리드 거리 측정<br>개중 가장 거리가 가깝게 나타나는 x.center, y.center 쌍에 해당하는 cluster를 해당 점에 매칭</p>
-</li>
-<li><p>subset(x, cluster)의 평균 계산 후 이 값과 기존의 x.center, y.center이 동일하면 loop 중단</p>
-</li>
-</ol>
-</blockquote>
-<ul>
-<li>빠르다.</li>
-<li>k-Median, k-Means++, k-Medoid 등의 변형이 있다.</li>
-<li>Elbow Method: within-cluster sum of squares를 line chart로 나타내어 눈에 띄게 꺾이는 부분을 클러스터 개수로 설정하는 경우가 많다.</li>
-</ul>
-<p>x, y에 각각 N(10, 4), N(-10, 2)를 따르는 50개의 난수를 부여하고, 이를 클러스터링하였다.</p>
-<p>k값에 따른 클러스터의 분포는 다음과 같이 나타난다.</p>
-<img src="/2020/11/01/006-k-means/image-20201101104839137.png" class="">
-<hr>
-<h2 id="Partitioning-Around-Medoids-PAM"><a href="#Partitioning-Around-Medoids-PAM" class="headerlink" title="Partitioning Around Medoids (PAM)"></a>Partitioning Around Medoids (PAM)</h2><img src="/2020/11/01/006-k-means/350px-K-Medoids_Clustering.gif" class="">
-<p>k-Medoid 클러스터링 중 가장 널리 쓰이는 알고리즘이다.</p>
-<ul>
-<li>노이즈와 이상치에 보다 Robust하다.</li>
-<li><p>해석이 용이하다.</p>
-</li>
-<li><p>Greedy Search: 최적치에 도달하지 못할 수 있다. 그래도 Exhaustive Search보단 훨씬 빠르다.</p>
-</li>
-</ul>
-<h4 id="알고리즘-개요-1"><a href="#알고리즘-개요-1" class="headerlink" title="알고리즘 개요"></a>알고리즘 개요</h4><blockquote>
-<ol>
-<li>Initialize: greedily select <em>k</em> of the <em>n</em> data points as the medoids to minimize the cost</li>
-<li>Associate each data point to the closest medoid.</li>
-<li>While the cost of the configuration decreases:<ol>
-<li>For each medoid m, and for each non-medoid data point o:<ol>
-<li>Consider the swap of <em>m</em> and <em>o</em>, and compute the cost change</li>
-<li>If the cost change is the current best, remember this <em>m</em> and <em>o</em> combination</li>
-</ol>
-</li>
-<li>Perform the best swap of $m_{best}$and $o_{best}$, if it decreases the cost function. Otherwise, the algorithm terminates.</li>
-</ol>
-</li>
-</ol>
-</blockquote>
-<p>대푯값(medoid)을 도출하는 데에는 Gower’s Distance를 활용할 수 있다.</p>
-<img src="/2020/11/01/006-k-means/image-20201101110638616.png" class="" width="334" height="112">
-
-            
-
-
-        </div>
-    </div>
-    <div id="post-footer" class="post-footer main-content-wrap">
+        <span>in </span>
         
-            <div class="post-footer-tags">
-                <span class="text-color-light text-small">TAGGED IN</span><br/>
-                
-    <a class="tag tag--primary tag--small t-none-link" href="/tags/Data-Science/" rel="tag">Data Science</a>
+    <a class="category-link" href="/categories/Data-Science/">Data Science</a>
+
+
+    
+</div>
 
             </div>
-        
-        
-            <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
+            
+                <div class="postShorten-content">
+                    <p>이진 분류기(Binary Classifier)의 성능을 측정하는 지표들은 다음과 같다. cancer test 예시를 떠올리며 보도록 하자.</p>
+<p><strong>참고</strong> decision boundary = cut-off value = threshold. 모두 같은 말이다.</p>
+<hr>
+<h4 id="ROC-AUC"><a href="#ROC-AUC" class="headerlink" title="ROC-AUC"></a>ROC-AUC</h4><p>수신자 조작 특성 곡선, receiver operating characteristics curve 아래 면적이다. [0.5, 1.0] 범위 내에서 나타난다. 진짜 양성을 모두 잡아내고 위양성도 없어야 1이 될 수 있다. </p>
+<ul>
+<li>진양성률, True Positive Rate = sensitivity</li>
+<li>위양성률, False Positive Rate = 1 - specificity</li>
+</ul>
+<p>모형의 decision boundary가 이동하는 모양을 TPR-FPR 평면에 나타내면 y = x와 y = 1 사이에 위치하는 곡선이 만들어진다. 이 곡선이 ROC 커브고, 곡선 하단의 넓이가 ROC-AUC다. </p>
+<h4 id="Accuracy"><a href="#Accuracy" class="headerlink" title="Accuracy"></a>Accuracy</h4><p>정답률만 보고 싶다면 써도 좋지만, 그런 경우는 극히 드물다.</p>
+<h4 id="Precision-Recall"><a href="#Precision-Recall" class="headerlink" title="Precision/Recall"></a>Precision/Recall</h4><script type="math/tex; mode=display">
+precision = \frac{True\,Positives}{TP +FP} = \frac{양성으로\,분류된\,양성\,수}{양성으로\,분류된\,케이스\,수}</script><script type="math/tex; mode=display">
+recall = \frac{True\,Positives}{TP+FN} = \frac{양성으로\,분류된\,양성\,수}{양성\,수}</script><p>위음성만 치명적이라면 recall을, 위양성만 치명적이라면 precision을 각각 단독 지표로 삼을 수도 있다.</p>
+<p>오분류율이 극히 낮지 않은 이상 두 지수는 trade-off 관계에 있는 경우가 많으며 이들을 엮어 PR-AUC를 측정하기도 한다. ROC-AUC만큼 로버스트하진 못하다.</p>
+<h4 id="F1-Score"><a href="#F1-Score" class="headerlink" title="F1 Score"></a>F1 Score</h4><script type="math/tex; mode=display">
+F_1 = \frac{2\times precision\times recall}{precision + recall}</script><p>Precision과 recall의 조화평균. 두 수치를 모두 고려한 지표이다. 1에 가까울수록 좋다. 불균형 데이터에서도, 멀티클래스 데이터에서도, 불균형 멀티클래스 데이터에서도 쓸 수 있다.</p>
+
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/02/009-zero-inflated-binary/"
-                    data-tooltip="Zero Inflated 데이터 이진분류"
-                    aria-label="PREVIOUS: Zero Inflated 데이터 이진분류"
-                >
+                        
+
+
                     
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
-                    </a>
-            </li>
-            <li class="post-action">
-                
                     
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/01/005-optimization/"
-                    data-tooltip="Optimization"
-                    aria-label="NEXT: Optimization"
-                >
+                        <p>
+                            <a
+                                href="/2020/11/02/010-bc-assessments/#post-footer"
+                                class="postShorten-excerpt_link link"
+                                aria-label=""
+                            >
+                                Comment and share
+                            </a>
+                        </p>
                     
-                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
+                </div>
+            
+        </div>
         
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                    title="Share on Facebook"
-                    aria-label="Share on Facebook"
-                >
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                    title="Share on Twitter"
-                    aria-label="Share on Twitter"
-                >
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                    title="Share on Google+"
-                    aria-label="Share on Google+"
-                >
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
+    </article>
+    
+    <div class="pagination-bar">
+    <ul class="pagination">
         
         
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
+        <li class="pagination-number">page 1 of 1</li>
     </ul>
 </div>
 
-
-        
-        
-            
-        
-    </div>
-</article>
+</section>
 
 
 
@@ -444,154 +323,6 @@
 </footer>
 
             </div>
-            
-                <div id="bottom-bar" class="post-bottom-bar" data-behavior="5">
-                    <div class="post-actions-wrap">
-    <nav>
-        <ul class="post-actions post-action-nav">
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/02/009-zero-inflated-binary/"
-                    data-tooltip="Zero Inflated 데이터 이진분류"
-                    aria-label="PREVIOUS: Zero Inflated 데이터 이진분류"
-                >
-                    
-                        <i class="fa fa-angle-left" aria-hidden="true"></i>
-                        <span class="hide-xs hide-sm text-small icon-ml">PREVIOUS</span>
-                    </a>
-            </li>
-            <li class="post-action">
-                
-                    
-                <a
-                    class="post-action-btn btn btn--default tooltip--top"
-                    href="/2020/11/01/005-optimization/"
-                    data-tooltip="Optimization"
-                    aria-label="NEXT: Optimization"
-                >
-                    
-                        <span class="hide-xs hide-sm text-small icon-mr">NEXT</span>
-                        <i class="fa fa-angle-right" aria-hidden="true"></i>
-                    </a>
-            </li>
-        </ul>
-    </nav>
-    <ul class="post-actions post-action-share">
-        <li class="post-action hide-lg hide-md hide-sm">
-            <a
-                class="post-action-btn btn btn--default btn-open-shareoptions"
-                href="#btn-open-shareoptions"
-                aria-label="Share this post"
-            >
-                <i class="fa fa-share-alt" aria-hidden="true"></i>
-            </a>
-        </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                    title="Share on Facebook"
-                    aria-label="Share on Facebook"
-                >
-                    <i class="fab fa-facebook" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                    title="Share on Twitter"
-                    aria-label="Share on Twitter"
-                >
-                    <i class="fab fa-twitter" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-            
-            
-            <li class="post-action hide-xs">
-                <a
-                    class="post-action-btn btn btn--default"
-                    target="new" href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                    title="Share on Google+"
-                    aria-label="Share on Google+"
-                >
-                    <i class="fab fa-google-plus" aria-hidden="true"></i>
-                </a>
-            </li>
-        
-        
-            
-        
-        <li class="post-action">
-            
-                <a class="post-action-btn btn btn--default" href="#" aria-label="Back to top">
-            
-                <i class="fa fa-list" aria-hidden="true"></i>
-            </a>
-        </li>
-    </ul>
-</div>
-
-
-                </div>
-                
-    <div id="share-options-bar" class="share-options-bar" data-behavior="5">
-        <i id="btn-close-shareoptions" class="fa fa-times"></i>
-        <ul class="share-options">
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://www.facebook.com/sharer/sharer.php?u=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                        aria-label="Share on Facebook"
-                    >
-                        <i class="fab fa-facebook" aria-hidden="true"></i><span>Share on Facebook</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://twitter.com/intent/tweet?text=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                        aria-label="Share on Twitter"
-                    >
-                        <i class="fab fa-twitter" aria-hidden="true"></i><span>Share on Twitter</span>
-                    </a>
-                </li>
-            
-                
-                
-                <li class="share-option">
-                    <a
-                        class="share-option-btn"
-                        target="new"
-                        href="https://plus.google.com/share?url=http://ioio-noo.github.io/2020/11/01/006-k-means/"
-                        aria-label="Share on Google+"
-                    >
-                        <i class="fab fa-google-plus" aria-hidden="true"></i><span>Share on Google+</span>
-                    </a>
-                </li>
-            
-        </ul>
-    </div>
-
-
             
         </div>
         
@@ -898,8 +629,6 @@
 
 <!--SCRIPTS END-->
 
-
-    
 
 
 
